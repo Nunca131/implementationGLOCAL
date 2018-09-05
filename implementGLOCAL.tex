@@ -1,39 +1,88 @@
 \documentclass[a4paper,10pt]{article}
-\usepackage[utf8]{inputenc}
+
+
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{calc}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multicol}
+\usepackage{pslatex}
+\usepackage{apalike}
+% Please add other packages that you may need BEFORE the SCITEPRESS.sty package.
 \usepackage{xcolor}
-\usepackage{natbib}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{SCITEPRESS}
 
+\subfigtopskip=0pt
+\subfigcapskip=0pt
+\subfigbottomskip=0pt
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\TODO}[1]{\begingroup\color{red}#1\endgroup}
 \newcommand{\PFS}[1]{\begingroup\maybecolor{green}#1\endgroup}
 \newcommand{\NR}[1]{\begingroup\maybecolor{Orange}#1\endgroup}
 \newcommand{\FK}[1]{\begingroup\maybecolor{blue}#1\endgroup}
 
-
-%
-
-
-\title{\TODO{blubb}}
-\author{Falco Kirchner, Nancy Retzlaff, Peter F. Stadler}
-
 \begin{document}
 
-\maketitle
+\title{A General Framework for Exact Partially Local Alignments}
 
-\begin{abstract}
- \TODO{fancy abstract}
-\end{abstract}
+\author{\authorname{Falco Kirchner\sup{1},
+    Nancy Retzlaff\sup{2,1}, and
+    Peter F.\ Stadler\sup{1,2,3,4,5}}
+  \affiliation{\sup{1}Bioinformatics Group, Department of Computer Science,
+      and Interdisciplinary Center for Bioinformatics,
+      H{\"a}rtelstra{\ss}e 16-18, D-04107 Leipzig, Germany}
+  \affiliation{\sup{2}Max Planck Institute for Mathematics in the Sciences,
+    Inselstra{\ss}e 22, D-04103 Leipzig, Germany}
+  \affiliation{\sup{3}Institute for Theoretical Chemistry, University of Vienna,
+    W{\"a}hringerstra{\ss}e 17, A-1090 Wien, Austria}
+  \affiliation{\sup{4}Santa Fe Institute, 1399 Hyde Park Road,
+    Santa Fe NM 87501, USA}
+  \email{FALCO@nirwana.net, \{nancy,studla\}@bioinf.uni-leipzig.de}
+}
 
-\section{Introduction}
+\keywords{Multiple sequence alignments, dynamics programming} 
 
-\section{Theory and Implementation?}
+\abstract{\TODO{we still need one}}
 
-\section{Benchmark}
+\onecolumn \maketitle \normalsize \vfill
 
-\section{Discussion}
+\section{\uppercase{Introduction}}
+
+\noindent \TODO{laber laber ... } \cite{Retzlaff:18a} \TODO{yadda yadda}  
 
 
-\label{Bibliography}
-\bibliographystyle{language} 
-\bibliography{implementGLOCAL}
+\section{\uppercase{Theory and Implementation?}}
+
+\section{\uppercase{Benchmark}}
+
+\section{\uppercase{Discussion}}
+\section*{\uppercase{Acknowledgements}}
+
+\noindent If any, should be placed before the references section
+without numbering. To do so please use the following command:
+\textit{$\backslash$section*\{ACKNOWLEDGEMENTS\}}
+
+
+\vfill
+\bibliographystyle{apalike}
+{\small
+\bibliography{implementGLOCAL}}
+
+
+\section*{\uppercase{Appendix}}
+
+\noindent If any, the appendix should appear directly after the
+references without numbering, and not on a new page. To do so please use the following command:
+\textit{$\backslash$section*\{APPENDIX\}}
+
+\vfill
 \end{document}
+
+
+
+
