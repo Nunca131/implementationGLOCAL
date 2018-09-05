@@ -1,20 +1,39 @@
 \documentclass[a4paper,10pt]{article}
 \usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{natbib}
 
 
+\newcommand{\TODO}[1]{\begingroup\color{red}#1\endgroup}
+\newcommand{\PFS}[1]{\begingroup\maybecolor{green}#1\endgroup}
+\newcommand{\NR}[1]{\begingroup\maybecolor{Orange}#1\endgroup}
+\newcommand{\FK}[1]{\begingroup\maybecolor{blue}#1\endgroup}
 
-%opening
-\title{}
-\author{}
+
+%
+
+
+\title{\TODO{blubb}}
+\author{Falco Kirchner, Nancy Retzlaff, Peter F. Stadler}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-
+ \TODO{fancy abstract}
 \end{abstract}
 
-\section{}
+\section{Introduction}
 
+\section{Theory and Implementation?}
+
+\section{Benchmark}
+
+\section{Discussion}
+
+
+\label{Bibliography}
+\bibliographystyle{language} 
+\bibliography{implementGLOCAL}
 \end{document}
