@@ -156,15 +156,38 @@ transit at most once to the \textit{dead} state. Consecutive alignment
 columns thus have state pairs $(A',D')$ and $(A,D)$ that are comparable
 w.r.t.\ the partial order
 \begin{equation}
-  (A',D')\preceq(A,D) \iff A'\cup D'\subseteq A\cup D
-  \textrm{ and } D'\subseteq D
+  (A',D')\preceq(A,D) \iff
+    \begin{cases} A'\cup D'\subseteq A\cup D \\
+      D'\subseteq D
+    \end{cases}
 \end{equation}
 The state changes can be performed stepwisely. As shown in
 \cite{Retzlaff:18a}, $(A',D')$ is an immediate predecessor of $(A,D)$
 if either exactly on one \textit{inactive} sequence become \textit{active}
 or exaclty one  \textit{active} sequence transitions to the dead state.
 We denote this relation by $\pprec$.
- 
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.9\columnwidth]{Fig1.eps}
+  \end{center}
+  \caption{Schematic representation of the breakpoint alignment model of
+    \cite{AlArab:17a}, with global reference sequence $\mathtt{1}$,
+    right-local prefix $\mathtt{2}$, and left-local suffix $\mathtt{3}$.
+    The initial and terminal states of valid alignments are therefore
+    $A|D=\{\mathtt{1},\mathtt{2}\}|\{\}$ and
+    $\{\mathtt{1},\mathtt{3}\}|\{\mathtt{2}\}$, respectively.  There are
+    two distinct path of transitioning between these states with
+    intermediates states $\{\mathtt{1}\}|\{\mathtt{2}\}$ (if $\mathtt{2}$
+    and $\mathtt{3}$ do not overlap) and $\{\mathtt{1,2,3}\}|\{\}$ (if
+    $\mathtt{2}$ and $\mathtt{3}$ overlap in their aligned part). The black
+    bullets indicate that the correspond end of the sequence is present in
+    the alignment, open circles indicate the prefixes of suffixes remain
+    unaligned.}
+  \label{fig:Marwa}
+\end{figure}
+
+
 In a quite general form (which uses the usual heuristic version of the
 affine gap cost model), the recursion for the optimal alignment score are
 of the form
@@ -176,31 +199,23 @@ of the form
                     \right]
         \\
         \displaystyle\max_{(A',D')\pprec(A,D)}  
-                    \left[ S^{\pi,(A,D)}_I + s(A',D'\to A,D)\right]
+                    \left[ S^{\pi,(A,D)}_I + s^*\right]
        \end{cases} 
 \label{eq:maxrec}
-\end{equation} 
+\end{equation}
 The upper multi-index $\pi$ (a non-null binary vector) denotes gap pattern
 in the last alignment column, the lower multi-index $I$ describes the
 length of the prefix included in the alignment up to this column. The
 scoring function $s(\,.\,)$ in the most general form depends on both gap
 patterns as well as the actual sequence entries. The second alternative
 does not move in the alignment but changes the state, a step that may also
-be associated with a cost. We note that the recursion simplifies in the
-case of additive scores. In this case $S$ does not depend on the gap
-pattern and $s$ becomes independent of $\tau$. The notation is illustrated
-in Fig.~\ref{fig:Marwa} for the algorithm introduced in \cite{AlArab:17a}.
+be associated with a cost $s^*$, which in the most general case may depend
+on $I,\pi,A,D,A',D'$.  We note that the recursion simplifies in the case of
+additive scores. In this case $S$ does not depend on the gap pattern and
+$s$ becomes independent of $\tau$. The notation is illustrated in
+Fig.~\ref{fig:Marwa} for the algorithm introduced in \cite{AlArab:17a}.
 The full recursions for this model with affine gap costs are given in the
-appendix of \cite{Retzlaff:18a}
-
-\begin{figure}
-  \caption{Simple model with state transitions.}
-  \label{fig:Marwa}
-\end{figure}
-
-
-
-
+appendix of \cite{Retzlaff:18a}.
 
 
 \section{\uppercase{Implementation}}
