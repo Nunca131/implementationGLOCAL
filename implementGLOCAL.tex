@@ -1,6 +1,5 @@
 \documentclass[a4paper,10pt]{article}
 
-
 \usepackage{epsfig}
 \usepackage{subfigure}
 \usepackage{calc}
@@ -10,6 +9,12 @@
 \usepackage{amsthm}
 \usepackage{multicol}
 \usepackage{pslatex}
+\usepackage{natbib}
+%%%% nasty hack to get rid of conflict of an annoying conflict
+\makeatletter
+\let\bibhang\@undefined
+\makeatother
+%%%% 
 \usepackage{apalike}
 % Please add other packages that you may need BEFORE the SCITEPRESS.sty package.
 \usepackage{xcolor}
@@ -190,32 +195,60 @@ In a quite general form (which uses the heuristic version of the affine gap
 cost model for more than two sequences), the recursion for the optimal
 alignment score are of the form
 \begin{equation} 
-  S^{\pi,(A,D)}_I = \max 
+  S^{(A,D)}_I = \max 
       \begin{cases}
-        \displaystyle\max_{\tau} 
-            \left[ S^{\tau,(A,D)}_{I-\pi} + s(\tau\to\pi)
+        \displaystyle\max_{\pi} 
+            \left[ S^{(A,D)}_{I-\pi} + s(\pi)
                     \right]
         \\
         \displaystyle\max_{(A',D')\pprec(A,D)}  
-                    \left[ S^{\pi,(A,D)}_I + s^*\right]
+                    \left[ S^{(A,D)}_I + s^*\right]
        \end{cases} 
 \label{eq:maxrec}
 \end{equation}
-The upper multi-index $\pi$ (a non-null binary vector) denotes gap pattern
-in the last alignment column, the lower multi-index $I$ describes the
-length of the prefix included in the alignment up to this column. The
-scoring function $s(\,.\,)$ in the most general form depends on both gap
-patterns as well as the actual sequence entries. The second alternative
-does not move in the alignment but changes the state, a step that may also
-be associated with a cost $s^*$, which in the most general case may depend
-on $I,\pi,A,D,A',D'$.  We note that the recursion simplifies in the case of
-additive scores. In this case $S$ does not depend on the gap pattern and
-$s$ becomes independent of $\tau$. The notation is illustrated in
-Fig.~\ref{fig:Marwa} for the algorithm introduced by \citet{AlArab:17a}.
-The full recursions for this model with affine gap costs are given in the
-appendix of \citet{Retzlaff:18a}.
+The variable$\pi$ (a non-null binary vector) denotes gap pattern in the
+last alignment column, the lower multi-index $I$ describes the lengths of
+the prefixes included in the alignment including this column.  Thus $I-\pi$
+is the vector of prefix lengths in the previous column. The scoring
+function $s(\,.\,)$ in the most general form depends on both gap patterns
+as well as the actual sequence entries. The second alternative does not
+move in the alignment but changes the state, a step that may also be
+associated with a cost $s^*$, which in the most general case may depend on
+$I,\pi,A,D,A',D'$. Equ.(\ref{eq:maxrec}) describes the recursion for
+additive score.  The notation is illustrated in Fig.~\ref{fig:Marwa} for
+the algorithm introduced by \citet{AlArab:17a}. In principle, the
+recursions are easily extended to affine gap costs. However, this incurs
+another factor $(2^N-1)$ in memory for $N$ sequences since the scoring
+tables $S$ becomes explicitly dependent on the gap pattern of the last
+column. The full recursions for the breakpoint alignment model with affine
+gap costs, are given in the appendix of \citet{Retzlaff:18a}.
+
+\TODO{explain the princple for the backtracing here} 
 
 \section{\uppercase{Implementation}}
+
+We have implemented the class of alignment algorithms outline in the
+previous section for the case of linear gap costs.
+
+\TODO{what language?} 
+
+The software first constructs the Hasse diagram for the partial order
+of states, i.e., an explicit representation of the relation $\pprec$.
+
+\TODO{does it also export/draw this?}
+
+This information is then used to allocated the necessary DP tables. 
+
+
+In principle, the
+software \TODO{name} is capable of accepting an arbitrary number of input
+sequences. However, the resource requirements quickly become prohibitive.
+
+\TODO{give a brief estimate of theoretical CPU and memory requirements}
+
+
+
+
 
 \TODO{FALCO should draft this: what exactly has been implemented} 
 \begin{itemize}
@@ -224,7 +257,10 @@ appendix of \citet{Retzlaff:18a}.
     \item iteration through the hasse graph computing the score matrices for every state in the right order. 
     \begin{itemize}
         \item to compute one state all the previous states have to be computed
-        \item (modified) exact global multiway-alignments per state (for each entry of the score matrix it checks whether it can use values of the score matrices of its previous states).
+        \item (modified) exact global multiway-alignments per state (for
+          each entry of the score matrix it checks whether it can use
+          values of the score matrices of its previous states).
+          \TODO{what exactly do you mean here?} 
     \end{itemize}
     \item an algorithm for backtracking
     \begin{itemize}
