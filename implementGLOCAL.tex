@@ -28,7 +28,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\TODO}[1]{\begingroup\color{red}#1\endgroup}
 \newcommand{\PFS}[1]{\begingroup\color{green}#1\endgroup}
-\newcommand{\NR}[1]{\begingroup\color{Orange}#1\endgroup}
+\newcommand{\NR}[1]{\begingroup\color{orange}#1\endgroup}
 \newcommand{\FK}[1]{\begingroup\color{blue}#1\endgroup}
 
 \newcommand{\DINGENS}[1]{\texttt{DINGENS}}
@@ -83,19 +83,19 @@ problems: a scoring function evaluates the similarities in an alignment
 column and/or the pattern of gaps. Multiple alignments are almost
 exclusively treated globally, that is, all parts of the input sequence is
 scored. The notion of ``local multiple alignments'' refer to short, usually
-gapless patterns \cite{Lukashin:99,Blanchette:02} arising in phylogenetic
-footprinting and related pattern discovery problems  \cite{Tabei:09}.
+gapless patterns \citep{Lukashin:99,Blanchette:02} arising in phylogenetic
+footprinting and related pattern discovery problems  \citep{Tabei:09}.
 
 Local variants of sequence alignment, on the hand, play an important role
 in pairwise alignments. Local alignments, i.e., maximally similar
 substrings within pairs of longer sequences, are a natural way to identify
 conserved domains.  The semi-global variant of pairwise alignment, in which
-one sequence, usually called ``query'', is expected to appear to as
+one sequence, usually called ``query'', is expected to appear as
 approximate substring of a larger ``subject'', again is a natural
 formalization of homology search, implemented e.g.\ in \texttt{gotohscan}
-\cite{Hertel:09a}.  Overlap alignments
-\cite{Jones:04} allowing free end gaps on all sequences have applications
-e.g.\ in sequence assembly \cite{Rausch:09}. Until recently, the
+\citep{Hertel:09a}.  Overlap alignments
+\citep{Jones:04} allowing free end gaps on all sequences have applications
+e.g.\ in sequence assembly \citep{Rausch:09}. Until recently, the
 generalization of these variants to more than two sequences has received
 very little attention.
 
@@ -105,21 +105,21 @@ models by means of dynamic programming. In fact, the algorithms of
 alignments, and the extension to affine gap costs by \citet{Gotoh:82} are
 among the early, paradigmatic example of dynamic programming. The basic
 recursive structure is readily extended to more than two input sequences
-\cite{Carillo:88,Lipman:89}; the time and space complexity, however, grows
+\citep{Carillo:88,Lipman:89}; the time and space complexity, however, grows
 exponentially with the number of sequences. Exact dynamic programming
-solutions thus have been use in practise only for 3-way
-\cite{Gotoh:86,Dewey:01,Konagurthu:04,Kruspe:07a} or 4-way
-\cite{Steiner:11a} alignments. Since multipe sequence alignment problems
-(for arbitrary numbers of input sequences) are typically NP-hard
-\cite{Kececioglu:93,Wang:94,Bonizzoni:01,Just:01,Manthey:03,Elias:06}, they
+solutions thus have been used in practice only for 3-way
+\citep{Gotoh:86,Dewey:01,Konagurthu:04,Kruspe:07a} or 4-way
+\citep{Steiner:11a} alignments. Since multipe sequence alignment problems
+(for arbitrary numbers of input sequences\NR{ $X$}) are typically NP-hard
+\citep{Kececioglu:93,Wang:94,Bonizzoni:01,Just:01,Manthey:03,Elias:06}, they
 are solved by heuristic approximation algorithms, see \citet{Baichoo:17}
 for a recent review.
 
-As the exact three-way and 4-way alignments have increased in usage,
+As the exact 3-way and 4-way alignments have increased in usage,
 variants of the problem that combine local and global alignments have been
 proposed for specialized application scenarios. \citet{AlArab:17a}
 considered the fate of sequences in the wake of mitochondrial genome
-rearrangments by simultaneously comparing the rearranged region and both of
+rearrangments by simultaneously comparing the rearranged region \NR{to} both of
 its ancestors. This approach made it possible to distinguish tandem
 duplication random loss (TDRL) from reversal or transposition events. This
 specialized 3-way alignment problem suggested the need to develop a general
@@ -127,16 +127,16 @@ theoretical framework for alignments that consider part of their input
 local and part global. As shown by \citet{Retzlaff:18a} it is possible --
 and convenient -- to allow the user determine separately for each input
 sequence and each of its ends, whether it is to be treated as global, i.e.,
-deletions of a prefix or a suffix are scored, or as local, allowing the
+deletions of a prefix or a suffix are \NR{penalized}, or as local, allowing the
 omission of prefixes or suffixes at not cost. We will briefly outline the
-theoretical results in the following section. The presentation by
+theoretical results in the following section. \NR{While t}he presentation by
 \citet{Retzlaff:18a} is purely theoretical and did not supply a reference
-implementation. The present contribution closes this gap.
+implementation\NR{, t}he present contribution closes this gap.
 
 \section{\uppercase{Theory}}
 
 The basic idea behind the framework of \citet{Retzlaff:18a} boils down to
-two ingredient: (1) Each input sequence is either local or global on the
+two ingredients: (1) Each input sequence is either local or global on the
 left and either local or global on the right. This is entirely the user's
 choice and provided with the input. (2) In a particular alignment column, a
 sequence may be \textit{inactive} (if up to this column its prefix is
@@ -147,14 +147,15 @@ left-local sequence starts out \textit{inactive}, while a left-global
 sequence starts out \textit{active}. Correspondingly, a right-global input
 is still \textit{active} at the end of the aligment, while a right-local
 sequence must be \textit{dead} at the end of the alignment. The partially
-local alignment problems can be solved by dynamic programming just at the
+local alignment problems can be solved by dynamic programming just as the
 classic pairwise problems mentioned in the introduction. As usual, a
-scoring table $S$ holds the optimal alignments of prefixes. The only
+scoring \NR{(\emph{memoization})} table $S$ holds the optimal alignments of prefixes. The only
 difference is that $S$ now depends not only on the length of prefixes but
 also on the state (\textit{inactive}, \textit{active}, or \textit{dead}) of
 each sequence in a given column of the alignment. It is sufficient to
 record the set $A$ of \textit{active} and $D$ of \textit{dead}
-sequences. As the alignment progresses, an \textit{inactive} sequence may
+sequences\NR{ since all \emph{inactive} can be derived by $X\setminus\{A \cup D\}$ }.
+As the alignment progresses, an \textit{inactive} sequence may
 become \textit{active} only once, and an \textit{active} may transit at
 most once to the \textit{dead} state. Consecutive alignment columns thus
 have state pairs $(A',D')$ and $(A,D)$ that are comparable w.r.t.\ the
@@ -215,7 +216,7 @@ function $s(\,.\,)$ in the most general form depends on both gap patterns
 as well as the actual sequence entries. The second alternative does not
 move in the alignment but changes the state, a step that may also be
 associated with a cost $s^*$, which in the most general case may depend on
-$I,\pi,A,D,A',D'$. Equ.(\ref{eq:maxrec}) describes the recursion for
+$I,\pi,A,D,A',D'$. Equation~(\ref{eq:maxrec}) describes the recursion for
 additive score. \PFS{The special case that a sequence $k$ that is both
   left- and right-local remains completely unaligned is handled by a
   directed transition from \textit{inactive} to \textit{dead} restricted to
@@ -231,16 +232,16 @@ appendix of \citet{Retzlaff:18a}.
 
 \PFS{The backtracing recursion is a rather straightforwards generalization
   of the backtracing scheme for the Smith-Waterman algorithm. The first
-  step is to find the score optimal partially local alignment. Denote by
-  $^{(A^*,D^*)}$ that unique maximal state w.rt.\ $preceq$, i.e., $A^*$ is
+  step is to find the optimal score partially local alignment. Denote by
+  $(A^*,D^*)$ that unique maximal state w.r.t.\ $preceq$, i.e., $A^*$ is
   the set of all right-global sequences and $D^*$ is the set of all
-  right-local sequences. Hence $A^*\cup D*$ contains all input sequences.
-  The optimal score is the maximum over all multiindices $I$ with
+  right-local sequences. Hence $A^*\cup D^*$ contains all input sequences.
+  The optimal score is the maximum over all multi-indices $I$ with
   constraint that $I_k=n_k$, the length of the $k$-th sequence, for all
   $k\in A^*$, with the the maximum taken over all indices $I_k$ with
   $k\in D^*$.  The maximum value of $I_k$ determines the right boundary of
   the right-local sequence.  The recursion then proceeds, as usual, to find
-  the index or state transition in equ.(\ref{eq:maxrec}). The backtracing
+  the index or state transition in Equ.(\ref{eq:maxrec}). The backtracing
   recursion terminates as soon as all left-global variables $k\in A_0$ have
   reached the left end oft the sequences, i.e., $I_k=0$ for all $k\in A_0$.
   The left boundary of a left-local sequences $l\notin A_0$ equals the
@@ -249,7 +250,26 @@ appendix of \citet{Retzlaff:18a}.
 \section{\uppercase{Implementation}}
 
 We have implemented a general alignment algorithm for partially local
-alignments with additive gap costs as outline in the previous section.
+alignments with additive gap costs.
+\NR{One major divergence from the previously given theory is that during
+the recursion steps we only allow state changes if characters are aligned.
+This means particularly for the start of a earlier \emph{inactive} sequence
+that it can only be started with the alignment of one of its characters. 
+There are immediate consequences to this way of implementation: (1) 
+$F = \{D\}$, a set of final states that always contain the right-global sequences as \emph{active} 
+sets but also any variation of right-local sequences as either \emph{inactive} 
+or \emph{active} since it has to be possible to end the alignment with any
+right-local sequence and it is impossible to transfer them from 
+\emph{active} to \emph{dead} after the alignment is done; note $(A^*,D^*) \in F$.
+A similar problem arises throughout backtracing and reaching possible 
+initial states, hence $A_0 = \{A\}$ respectively. 
+(2) It has to be possible to not only start not only aligning one local 
+sequence but any number of them. Hence the Hasse graph still contains the 
+same amount of nodes but the number of edges increases drastically with 
+respect to the number of semi-global and local sequences.}
+\TODO{verschieben?}
+
+
 \SAFTWARE{} is written in \TODO{\texttt{Java} and uses whatever
   ... libraries}.  In principle, the software \TODO{name} is capable of
 accepting an arbitrary number of input sequences. However, the resource
@@ -277,7 +297,7 @@ there are
 distinct states, because global sequences are always \textit{active},
 semi-local sequences change either state from \textit{inactive} to to
 \textit{active} or from \textit{active} to \textit{dead}, while local
-sequences must pass through all three states. All combinations of these
+sequences \NR{can} pass through all three states. All combinations of these
 states must be considered, since the relative order (between sequences) of
 the state transitions is not constrained. 
 
