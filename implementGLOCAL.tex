@@ -221,7 +221,21 @@ appendix of \cite{Retzlaff:18a}.
 \section{\uppercase{Implementation}}
 
 \TODO{FALCO should draft this: what exactly has been implemented} 
-
+\begin{itemize}
+    \item an algorithm for exact global multiway-alignments is core of this implementation
+    \item an algorithm to construct the hasse diagram (derived from localities)
+    \item iteration through the hasse graph computing the score matrices for every state in the right order. 
+    \begin{itemize}
+        \item to compute one state all the previous states have to be computed
+        \item (modified) exact global multiway-alignments per state (for each entry of the score matrix it checks whether it can use values of the score matrices of its previous states).
+    \end{itemize}
+    \item an algorithm for backtracking
+    \begin{itemize}
+        \item finds the best starting point in one of the potentially many final states/scoring matrices
+        \item tracks back through state transitions 
+    \end{itemize}
+    \item algorithms to read sequences (fasta), score matrices and localities from input files
+\end{itemize}
 
 \section{\uppercase{Benchmark}}
 
