@@ -246,35 +246,53 @@ as soon as all left-global variables $k\in A_0$ have reached the left end
 oft the sequences, i.e., $I_k=0$ for all $k\in A_0$.  The left boundary of
 a left-local sequences $l\notin A_0$ equals the index $I_l$ at this point.
 
-\TODO{A brief note on ambiguity and probabilistic versions} 
+\PFS{Equ.(\ref{eq:maxrec}) is the simplest way to explain the recursive
+  structure of the partially local alignment problem. It has the
+  disdvantage that it provides more than one way to obtain a particular
+  partial alignment (characterized by $I,A,D$) since state transition can
+  be performed in arbitrary order. As a consequence, equ.(\ref{eq:maxrec})
+  cannot be used to compute partition functions over alignments, and hence
+  to obtain a probabilistic version. As described in some detail in
+  \citet{Retzlaff:18a}, unambiguous recursions can be constructed by
+  allowing state transitions from \textit{inactive} to \textit{active} and
+  from \textit{active} to \textit{dead} for a sequence $k$ only in
+  conjunction with appending of a alignment column for which $\pi_k=1$.
+  At the same time, one needs to consider also all possible state
+  transitions with $(A',D')\prec(A,D)$. That is,
+  \begin{equation} 
+    S^{(A,D)}_I = 
+    \displaystyle\max_{\pi} \displaystyle\max_{(A',D')}^*
+    \left[ S^{(A',D')}_{I-\pi} + s(\pi) + s^* \right]
+    \label{eq:maxrec2}
+  \end{equation}
+  where $\max_{(A',D')}^*$ runs over all $(A',D')\preceq(A,D)$ such that
+  $k\in A\setminus A'$ or $k\in D\setminus D'$ implies $\pi_k=1$.
+}
+
 
 \section{\uppercase{Implementation}}
 
 We have implemented a general alignment algorithm for partially local
-alignments with additive gap costs.
-\NR{One major divergence from the previously given theory is that during
-the recursion steps we only allow state changes if characters are aligned.
-This means particularly for the start of a earlier \emph{inactive} sequence
-that it can only be started with the alignment of one of its characters. 
-There are immediate consequences to this way of implementation: (1) 
-$F = \{D\}$, a set of final states that always contain the right-global sequences as \emph{active} 
-sets but also any variation of right-local sequences as either \emph{inactive} 
-or \emph{active} since it has to be possible to end the alignment with any
-right-local sequence and it is impossible to transfer them from 
-\emph{active} to \emph{dead} after the alignment is done; note $(A^*,D^*) \in F$.
-A similar problem arises throughout backtracing and reaching possible 
-initial states, hence $A_0 = \{A\}$ respectively. 
-(2) It has to be possible to not only start not only aligning one local 
-sequence but any number of them. Hence the Hasse graph still contains the 
-same amount of nodes but the number of edges increases drastically with 
-respect to the number of semi-global and local sequences.}
-\TODO{verschieben?}
+alignments with additive gap costs, starting from
+equ.(\ref{eq:maxrec2}). In the practical implementation we omit the the
+formal initial state $(A_0,\emptyset)$ and separately initialize all
+left-local sequences $k$ both in the inactive and the active state for
+$I_k=0$. Similarly, we catch die final states at the right end of
+right-local sequences without explicitly considering a final transition to
+the \textit{dead} state after the last letter has been included into the
+alignment. Equ.(\ref{eq:maxrec2}) in general requires the consideration of
+more state changes in each step than equ.(\ref{eq:maxrec}). While
+equ.(\ref{eq:maxrec}) only considers the Hasse diagraph of the partial
+order $\prec$, its transitive closure is required for
+equ.(\ref{eq:maxrec2}). On the other hand, equ.(\ref{eq:maxrec2}) provides
+a very convenient starting point for later extensions e.g.\ to a
+probabilistic version. 
 
-
+  
 \SAFTWARE{} is written in \TODO{\texttt{Java} and uses whatever
-  ... libraries}.  In principle, the software \TODO{name} is capable of
-accepting an arbitrary number of input sequences. However, the resource
-requirements quickly become prohibitive.
+  ... libraries}.  In principle, \SAFTWARE{} is capable of accepting an
+arbitrary number of input sequences. However, the resource requirements
+quickly become prohibitive.
 
 \SAFTWARE{} first constructs the Hasse diagram for the partial order
 of states, i.e., an explicit representation of the relation $\pprec$.
@@ -298,9 +316,9 @@ there are
 distinct states, because global sequences are always \textit{active},
 semi-local sequences change either state from \textit{inactive} to to
 \textit{active} or from \textit{active} to \textit{dead}, while local
-sequences \NR{can} pass through all three states. All combinations of these
+sequences can pass through all three states. All combinations of these
 states must be considered, since the relative order (between sequences) of
-the state transitions is not constrained. 
+the state transitions is not constrained.
 
 
 \TODO{give a brief estimate of theoretical CPU and memory requirements}
