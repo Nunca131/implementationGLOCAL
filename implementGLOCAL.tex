@@ -110,28 +110,28 @@ exponentially with the number of sequences. Exact dynamic programming
 solutions thus have been used in practice only for 3-way
 \citep{Gotoh:86,Dewey:01,Konagurthu:04,Kruspe:07a} or 4-way
 \citep{Steiner:11a} alignments. Since multipe sequence alignment problems
-(for arbitrary numbers of input sequences\NR{ $X$}) are typically NP-hard
-\citep{Kececioglu:93,Wang:94,Bonizzoni:01,Just:01,Manthey:03,Elias:06}, they
-are solved by heuristic approximation algorithms, see \citet{Baichoo:17}
-for a recent review.
+(for arbitrary numbers of input sequences $X$ are typically NP-hard
+\citep{Kececioglu:93,Wang:94,Bonizzoni:01,Just:01,Manthey:03,Elias:06},
+they are solved by heuristic approximation algorithms, see
+\citet{Baichoo:17} for a recent review.
 
-As the exact 3-way and 4-way alignments have increased in usage,
-variants of the problem that combine local and global alignments have been
-proposed for specialized application scenarios. \citet{AlArab:17a}
-considered the fate of sequences in the wake of mitochondrial genome
-rearrangments by simultaneously comparing the rearranged region \NR{to} both of
-its ancestors. This approach made it possible to distinguish tandem
-duplication random loss (TDRL) from reversal or transposition events. This
-specialized 3-way alignment problem suggested the need to develop a general
-theoretical framework for alignments that consider part of their input
-local and part global. As shown by \citet{Retzlaff:18a} it is possible --
-and convenient -- to allow the user determine separately for each input
-sequence and each of its ends, whether it is to be treated as global, i.e.,
-deletions of a prefix or a suffix are \NR{penalized}, or as local, allowing the
-omission of prefixes or suffixes at not cost. We will briefly outline the
-theoretical results in the following section. \NR{While t}he presentation by
+As the exact 3-way and 4-way alignments have increased in usage, variants
+of the problem that combine local and global alignments have been proposed
+for specialized application scenarios. \citet{AlArab:17a} considered the
+fate of sequences in the wake of mitochondrial genome rearrangments by
+simultaneously comparing the rearranged region to both of its
+ancestors. This approach made it possible to distinguish tandem duplication
+random loss (TDRL) from reversal or transposition events. This specialized
+3-way alignment problem suggested the need to develop a general theoretical
+framework for alignments that consider part of their input local and part
+global. As shown by \citet{Retzlaff:18a} it is possible -- and convenient
+-- to allow the user determine separately for each input sequence and each
+of its ends, whether it is to be treated as global, i.e., deletions of a
+prefix or a suffix are penalized, or as local, allowing the omission of
+prefixes or suffixes at not cost. We will briefly outline the theoretical
+results in the following section. \NR{While t}he presentation by
 \citet{Retzlaff:18a} is purely theoretical and did not supply a reference
-implementation\NR{, t}he present contribution closes this gap.
+implementation, the present contribution closes this gap.
 
 \section{\uppercase{Theory}}
 
@@ -149,17 +149,17 @@ is still \textit{active} at the end of the aligment, while a right-local
 sequence must be \textit{dead} at the end of the alignment. The partially
 local alignment problems can be solved by dynamic programming just as the
 classic pairwise problems mentioned in the introduction. As usual, a
-scoring \NR{(\emph{memoization})} table $S$ holds the optimal alignments of prefixes. The only
-difference is that $S$ now depends not only on the length of prefixes but
-also on the state (\textit{inactive}, \textit{active}, or \textit{dead}) of
-each sequence in a given column of the alignment. It is sufficient to
-record the set $A$ of \textit{active} and $D$ of \textit{dead}
-sequences\NR{ since all \emph{inactive} can be derived by $X\setminus\{A \cup D\}$ }.
-As the alignment progresses, an \textit{inactive} sequence may
-become \textit{active} only once, and an \textit{active} may transit at
-most once to the \textit{dead} state. Consecutive alignment columns thus
-have state pairs $(A',D')$ and $(A,D)$ that are comparable w.r.t.\ the
-partial order
+scoring (\emph{memoization}) table $S$ holds the optimal alignments of
+prefixes. The only difference is that $S$ now depends not only on the
+length of prefixes but also on the state (\textit{inactive},
+\textit{active}, or \textit{dead}) of each sequence in a given column of
+the alignment. It is sufficient to record the set $A$ of \textit{active}
+and $D$ of \textit{dead} sequences, since the \emph{inactive} sequences are
+given by $X\setminus\{A \cup D\}$.  As the alignment progresses, an
+\textit{inactive} sequence may become \textit{active} only once, and an
+\textit{active} may transit at most once to the \textit{dead}
+state. Consecutive alignment columns thus have state pairs $(A',D')$ and
+$(A,D)$ that are comparable w.r.t.\ the partial order
 \begin{equation}
   (A',D')\preceq(A,D) \iff
     \begin{cases} A'\cup D'\subseteq A\cup D \\
@@ -170,8 +170,8 @@ The state changes can be performed stepwisely. As shown in
 \cite{Retzlaff:18a}, $(A',D')$ is an immediate predecessor of $(A,D)$ if
 either exactly on one \textit{inactive} sequence become \textit{active} or
 exaclty one \textit{active} sequence transitions to the dead state.  We
-denote this relation by $\pprec$. \PFS{The initial condition is $A=A_0$,
-  where $A_0$ is the set of left-global sequences, and $D=\emptyset$.}
+denote this relation by $\pprec$. The initial condition is $A=A_0$, where
+$A_0$ is the set of left-global sequences, and $D=\emptyset$.
 
 \begin{figure}
   \begin{center}
@@ -217,10 +217,10 @@ as well as the actual sequence entries. The second alternative does not
 move in the alignment but changes the state, a step that may also be
 associated with a cost $s^*$, which in the most general case may depend on
 $I,\pi,A,D,A',D'$. Equation~(\ref{eq:maxrec}) describes the recursion for
-additive score. \PFS{The special case that a sequence $k$ that is both
-  left- and right-local remains completely unaligned is handled by a
-  directed transition from \textit{inactive} to \textit{dead} restricted to
-  $I_k=0$, see \citet{Retzlaff:18a} for details.}
+additive score. The special case that a sequence $k$ that is both left- and
+right-local remains completely unaligned is handled by a directed
+transition from \textit{inactive} to \textit{dead} restricted to $I_k=0$,
+see \citet{Retzlaff:18a} for details.
 
 The notation is illustrated in Fig.~\ref{fig:Marwa} for the algorithm
 introduced by \citet{AlArab:17a}. In principle, the recursions are easily
@@ -230,22 +230,23 @@ dependent on the gap pattern of the last column. The full recursions for
 the breakpoint alignment model with affine gap costs, are given in the
 appendix of \citet{Retzlaff:18a}.
 
-\PFS{The backtracing recursion is a rather straightforwards generalization
-  of the backtracing scheme for the Smith-Waterman algorithm. The first
-  step is to find the optimal score partially local alignment. Denote by
-  $(A^*,D^*)$ that unique maximal state w.r.t.\ $preceq$, i.e., $A^*$ is
-  the set of all right-global sequences and $D^*$ is the set of all
-  right-local sequences. Hence $A^*\cup D^*$ contains all input sequences.
-  The optimal score is the maximum over all multi-indices $I$ with
-  constraint that $I_k=n_k$, the length of the $k$-th sequence, for all
-  $k\in A^*$, with the the maximum taken over all indices $I_k$ with
-  $k\in D^*$.  The maximum value of $I_k$ determines the right boundary of
-  the right-local sequence.  The recursion then proceeds, as usual, to find
-  the index or state transition in Equ.(\ref{eq:maxrec}). The backtracing
-  recursion terminates as soon as all left-global variables $k\in A_0$ have
-  reached the left end oft the sequences, i.e., $I_k=0$ for all $k\in A_0$.
-  The left boundary of a left-local sequences $l\notin A_0$ equals the
-  index $I_l$ at this point.}
+The backtracing recursion is a rather straightforwards generalization of
+the backtracing scheme for the Smith-Waterman algorithm. The first step is
+to find the optimal score partially local alignment. Denote by $(A^*,D^*)$
+that unique maximal state w.r.t.\ $preceq$, i.e., $A^*$ is the set of all
+right-global sequences and $D^*$ is the set of all right-local
+sequences. Hence $A^*\cup D^*$ contains all input sequences.  The optimal
+score is the maximum over all multi-indices $I$ with constraint that
+$I_k=n_k$, the length of the $k$-th sequence, for all $k\in A^*$, with the
+the maximum taken over all indices $I_k$ with $k\in D^*$.  The maximum
+value of $I_k$ determines the right boundary of the right-local sequence.
+The recursion then proceeds, as usual, to find the index or state
+transition in Equ.(\ref{eq:maxrec}). The backtracing recursion terminates
+as soon as all left-global variables $k\in A_0$ have reached the left end
+oft the sequences, i.e., $I_k=0$ for all $k\in A_0$.  The left boundary of
+a left-local sequences $l\notin A_0$ equals the index $I_l$ at this point.
+
+\TODO{A brief note on ambiguity and probabilistic versions} 
 
 \section{\uppercase{Implementation}}
 
