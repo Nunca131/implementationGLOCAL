@@ -337,7 +337,8 @@ the state transitions is not constrained.
         \item (modified) exact global multiway-alignments per state (for
           each entry of the score matrix it checks whether it can use
           values of the score matrices of its previous states).
-          \TODO{what exactly do you mean here?} 
+          \TODO{what exactly do you mean here?} \\
+          when it computes an entry of the actual score matrix it does not only take the three previous entries of this matrix into account, but also values of its previous matrices/states
     \end{itemize}
     \item an algorithm for backtracking
     \begin{itemize}
@@ -387,7 +388,3 @@ references without numbering, and not on a new page. To do so please use the fol
 
 \vfill
 \end{document}
-
-
-
-
