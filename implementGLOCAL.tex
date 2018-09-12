@@ -129,7 +129,7 @@ global. As shown by \citet{Retzlaff:18a} it is possible -- and convenient
 of its ends, whether it is to be treated as global, i.e., deletions of a
 prefix or a suffix are penalized, or as local, allowing the omission of
 prefixes or suffixes at not cost. We will briefly outline the theoretical
-results in the following section. \NR{While t}he presentation by
+results in the following section. While the presentation by
 \citet{Retzlaff:18a} is purely theoretical and did not supply a reference
 implementation, the present contribution closes this gap.
 
@@ -246,29 +246,27 @@ as soon as all left-global variables $k\in A_0$ have reached the left end
 oft the sequences, i.e., $I_k=0$ for all $k\in A_0$.  The left boundary of
 a left-local sequences $l\notin A_0$ equals the index $I_l$ at this point.
 
-\PFS{Equ.(\ref{eq:maxrec}) is the simplest way to explain the recursive
-  structure of the partially local alignment problem. It has the
-  disdvantage that it provides more than one way to obtain a particular
-  partial alignment (characterized by $I,A,D$) since state transition can
-  be performed in arbitrary order. As a consequence, equ.(\ref{eq:maxrec})
-  cannot be used to compute partition functions over alignments, and hence
-  to obtain a probabilistic version. As described in some detail in
-  \citet{Retzlaff:18a}, unambiguous recursions can be constructed by
-  allowing state transitions from \textit{inactive} to \textit{active} and
-  from \textit{active} to \textit{dead} for a sequence $k$ only in
-  conjunction with appending of a alignment column for which $\pi_k=1$.
-  At the same time, one needs to consider also all possible state
-  transitions with $(A',D')\prec(A,D)$. That is,
-  \begin{equation} 
-    S^{(A,D)}_I = 
-    \displaystyle\max_{\pi} \displaystyle\max_{(A',D')}^*
-    \left[ S^{(A',D')}_{I-\pi} + s(\pi) + s^* \right]
-    \label{eq:maxrec2}
-  \end{equation}
-  where $\max_{(A',D')}^*$ runs over all $(A',D')\preceq(A,D)$ such that
-  $k\in A\setminus A'$ or $k\in D\setminus D'$ implies $\pi_k=1$.
-}
-
+Equ.(\ref{eq:maxrec}) is the simplest way to explain the recursive
+structure of the partially local alignment problem. It has the disdvantage
+that it provides more than one way to obtain a particular partial alignment
+(characterized by $I,A,D$) since state transition can be performed in
+arbitrary order. As a consequence, equ.(\ref{eq:maxrec}) cannot be used to
+compute partition functions over alignments, and hence to obtain a
+probabilistic version. As described in some detail in \citet{Retzlaff:18a},
+unambiguous recursions can be constructed by allowing state transitions
+from \textit{inactive} to \textit{active} and from \textit{active} to
+\textit{dead} for a sequence $k$ only in conjunction with appending of a
+alignment column for which $\pi_k=1$.  At the same time, one needs to
+consider also all possible state transitions with $(A',D')\prec(A,D)$. That
+is,
+\begin{equation}
+  S^{(A,D)}_I = 
+  \displaystyle\max_{\pi} \displaystyle\max_{(A',D')}^*
+  \left[ S^{(A',D')}_{I-\pi} + s(\pi) + s^* \right]
+  \label{eq:maxrec2}
+\end{equation}
+where $\max_{(A',D')}^*$ runs over all $(A',D')\preceq(A,D)$ such that
+$k\in A\setminus A'$ or $k\in D\setminus D'$ implies $\pi_k=1$.
 
 \section{\uppercase{Implementation}}
 
@@ -302,14 +300,11 @@ of states, i.e., an explicit representation of the relation $\pprec$.
   format. see https://www.graphviz.org/}
 
 The Hasse diagraph is then use to allocated the necessary DP tables: one
-$\prod_{k\in A} O(n_k)$-size table is required for each state $(A,D)$. 
-
-\TODO{number of entries in the Hasse diagram?} 
-
-Let $g$=$|A_0\cap A^*|$ be the number of global sequences, $s=|A_0\setminus
-A^*|$ + $A^*\setminus A_0$ the number sequences that are local and one end
-and global at the other, and $\ell$ the number of local sequences. Then
-there are 
+$\prod_{k\in A} O(n_k)$-size table is required for each state $(A,D)$.  Let
+$g$=$|A_0\cap A^*|$ be the number of global sequences,
+$s=|A_0\setminus A^*|$ + $A^*\setminus A_0$ the number sequences that are
+local and one end and global at the other, and $\ell$ the number of local
+sequences. Then there are
 \begin{equation}
   h = 1^a 2^s 3^{\ell} 
 \end{equation} 
@@ -319,6 +314,9 @@ semi-local sequences change either state from \textit{inactive} to to
 sequences can pass through all three states. All combinations of these
 states must be considered, since the relative order (between sequences) of
 the state transitions is not constrained.
+
+
+
 
 
 \TODO{give a brief estimate of theoretical CPU and memory requirements}
