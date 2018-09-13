@@ -348,46 +348,83 @@ the state transitions is not constrained.
 
 \section{\uppercase{Benchmark}}
 
-\TODO{* describe benchmark data *}
-\NR{
-\subsection{Databases}
-For the evaluation of our tool, we used two well known benchmark protein databases. \texttt{OXBench}
-\cite{oxbench} is a completely automatically generated database whereas \texttt{BAliBASE} 
-\cite{balibase} has a manual step for cleaning initial alignments before the release.
+%\subsection{Data}
+% I think this will be sufficiently little text that we don't need
+% subsection headings :)
 
-\TODO{we will  probably choose the Set of Small families in OXBench and a subset of 
-Reference 1-5 of BAliBASE}
-}
-\TODO{was brauchen wir noch hier???}
-\TODO{* what tools do we benchmark against, ans why? *} 
+We use two well known benchmark protein databases to test and evaluate
+\SAFTWARE. \texttt{OXBench} \cite{oxbench} is a completely automatically
+generated database whereas \texttt{BAliBASE} \cite{balibase} has a manual
+step for cleaning initial alignments before the release.
 
+\TODO{* what tools do we benchmark against, and why? *} 
+
+\TODO{Falco: include benchmark results as graphics. Ideally we should not
+  be massively slower than other exact tools for only global input
+  sequences.}
+
+\TODO{Falco: please also check explicitly that your code works correctly
+  for pairwise local alignments against an implementation Smith-Waterman.
+  I just want to be sure that we handle the boundary cases with only a
+  single active sequence, i.e., nothing to do, correctly.} 
+
+\TODO{maybe include a figure with an example output!} 
 
 \section{\uppercase{Discussion}}
 
-\TODO{alignments with exclusions by allowing sequences to return from \emph{dead} to 
-\emph{active}. }
+\PFS{%
+\SAFTWARE{} is primarily meant as a reference implemention against which
+specialized partially local alignments can be tested and benchmarked. We
+anticipate at least two use cases. First, \SAFTWARE{} is useful to to
+create test cases and help debugging during the development phase of a
+specialized exact implementation. More importantly, since \SAFTWARE{}
+computed exact solutions for a moderate number of input sequences, it can
+be used to generate ground-truth data against which faster heuristics can
+be compared. 
 
-\TODO{Hasse diagram in its implemented for is unambiguous, hence the step towards 
-a probabilistic version of partially local sequence alignments is easily achievable.}
+The framework of \SAFTWARE{} lends itself to further extensions. First, it
+is easily possible to derive a probabilistic version. This essentially
+entails a change in the scoring from adding score contributions to
+multiplying with the corresponding Boltzmann factors. The corresponding
+outside algorithm could easily be constructed along the lines of
+\cite{Hoener:15b}. Another extension that could be realized very easily is
+to enforce additional constraints on state transitions. For example, it may
+be useful in a pattern-based applications to allow the transition to and
+from \textit{active} only concurrently, i.e., at the same position relative
+to remaining input sequences.
+
+Instead of treating state transitions in an acyclic manner, it is also
+possibly to allow multiple transitions from \textit{active} back to
+\textit{inactive}. This would allow certain (context dependent) deletions
+to occur at a unit cost. Such ``exclusions'' have rarely been considered in
+sequence alignment but are of some interest for structured RNAs
+\cite{Schirmer:13}. This idea may be of use in particular when sequences
+are provided with structural annotation and deletions of entire structural
+elements are to be scored in a special way.
+}
+
+\TODO{maybe also add a sentence or two about potential application to
+  language data, where the generality w.r.t the number of input sequences
+  becomes important has all the sequence length $n$ are small.}
+
+\TODO{Salbungsvolle schlusssaetze}
 
 \section*{\uppercase{Acknowledgements}}
 
-\noindent If any, should be placed before the references section
-without numbering. To do so please use the following command:
-\textit{$\backslash$section*\{ACKNOWLEDGEMENTS\}}
-
+NR gratefully acknowledges the hospitality of the Santa Fe Institute, where
+parts of this work were performed, as well as travel support \TODO{check
+  with Manfred if this the correct ack! by ASU-SFI
+  Center for Biosocial Complex Systems.}
 
 \vfill
 \bibliographystyle{apalike}
 {\small
 \bibliography{implementGLOCAL}}
 
-
 \section*{\uppercase{Appendix}}
 
-\noindent If any, the appendix should appear directly after the
-references without numbering, and not on a new page. To do so please use the following command:
-\textit{$\backslash$section*\{APPENDIX\}}
+\TODO{I don't think we will have an appendix.} 
+
 
 \vfill
 \end{document}
