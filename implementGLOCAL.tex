@@ -292,12 +292,12 @@ probabilistic version.
 arbitrary number of input sequences. However, the resource requirements
 quickly become prohibitive.
 
-\SAFTWARE{} first constructs the Hasse diagram for the partial order
-of states, i.e., an explicit representation of the relation $\pprec$.
+\SAFTWARE{} first constructs the \FK{transitive closure} Hasse diagram for the partial order
+of states, i.e., an explicit representation of the relation \FK{$\prec$}.
 
 \TODO{does it also export/draw this? == use \texttt{graphviz} to draw the
   diagrams, just export them in a way that graphviz can read, i.e. DOT
-  format. see https://www.graphviz.org/}
+  format. see https://www.graphviz.org/} \FK{yes, it is exporting the graph in DOT format.}
 
 The Hasse diagraph is then use to allocated the necessary DP tables: one
 $\prod_{k\in A} O(n_k)$-size table is required for each state $(A,D)$.  Let
