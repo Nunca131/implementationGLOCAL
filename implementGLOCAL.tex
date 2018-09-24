@@ -326,6 +326,7 @@ the state transitions is not constrained.
 
 
 \TODO{FALCO should draft this: what exactly has been implemented} 
+\FK{
 \begin{itemize}
     \item an algorithm for exact global multiway-alignments is core of this implementation
     \item an algorithm to construct the hasse diagram (derived from localities)
@@ -345,6 +346,7 @@ the state transitions is not constrained.
     \end{itemize}
     \item algorithms to read sequences (fasta), score matrices and localities from input files
 \end{itemize}
+}
 
 \section{\uppercase{Benchmark}}
 
@@ -402,6 +404,9 @@ sequence alignment but are of some interest for structured RNAs
 are provided with structural annotation and deletions of entire structural
 elements are to be scored in a special way.
 }
+
+\FK{
+This implementation is not yet optimized in terms of performance. One solution could be an approach of parallelization, namely fine grained multithreading \cite{Martins:01}.}
 
 \TODO{maybe also add a sentence or two about potential application to
   language data, where the generality w.r.t the number of input sequences
