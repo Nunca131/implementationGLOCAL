@@ -1,0 +1,13 @@
+times = read.table("times_locs.txt", header = TRUE, sep = "\t")
+times1 <- times[ which(times$localEndCount < 4),]
+times2 <- times[ which(times$localEndCount > 3),]
+barplot(log(colMeans(times1[,2:5], na.rm = TRUE)), main="", xlab="application", ylab="log(time in millis)")
+barplot(log(colMeans(times2[,2:5], na.rm = TRUE)), main="", xlab="application", ylab="log(time in millis)")
+
+ac = read.table("ac.txt", header = TRUE, sep = "\t")
+boxplot(ac[,2:5], outline=FALSE)
+
+pse = read.table("pse.txt", header = TRUE, sep = "\t")
+boxplot(pse[,2:5], outline=FALSE)
+
+
