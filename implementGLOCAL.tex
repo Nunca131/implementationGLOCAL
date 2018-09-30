@@ -357,20 +357,26 @@ the state transitions is not constrained.
 We use two well known benchmark protein databases to test and evaluate
 \SAFTWARE. \texttt{OXBench} \cite{oxbench} is a completely automatically
 generated database whereas \texttt{BAliBASE} \cite{balibase} has a manual
-step for cleaning initial alignments before the release.
+step for cleaning initial alignments before the release. \NR{The sequences obtain are subsequently aligned with \SAFTWARE as well as three of the most common alignment tools: \texttt{T-Coffee}, \texttt{MAFFT}, and \texttt{ClustalW}.
 
-\TODO{* what tools do we benchmark against, and why? *} 
-\FK{We benchmark agains t\_coffee, mafft and clustalW}
+Comparing Figs.~\ref{fig:littleLoc} and \ref{fig:manyLoc} we can see that the time of \SAFTWARE strongly depends on how many localities we observe in one alignment while it yet has to be optimized to run faster. 
 
-\TODO{Falco: include benchmark results as graphics. Ideally we should not
-  be massively slower than other exact tools for only global input
-  sequences.}
+In Fig.~\ref{fig:ac} we plotted the average accuracy $AC$ of our alignment which is defined as
+
+\begin{equation*}
+ AC = \frac{L - f}{L}
+\end{equation*}
+
+in an alignment of lenght $L$ with $f$ falsely aligned positions of our alignments compared to the reference alignment in the benchmark dataset. We see that the average accuracy of \SAFTWARE lies above all other programs.  
+
+To test how many alignment columns are correctly aligned we first enumerated }
 
 \FK{  
 \begin{figure}
   \begin{center}
     \includegraphics[width=1\columnwidth]{times_smaller4_boxplot.eps}
   \end{center}
+ \label{fig:littleLoc}
   \caption{Execution time of \SAFTWARE{} for Alignments with less than 4 local ends in comparison to execution time of t\_coffee, mafft and clustalw for the same, but totally global alignments.}
 \end{figure}
 
@@ -378,6 +384,7 @@ step for cleaning initial alignments before the release.
   \begin{center}
     \includegraphics[width=1\columnwidth]{times_bigger3_boxplot.eps}
   \end{center}
+  \label{fig:manyLoc}
   \caption{Execution time of \SAFTWARE{} for Alignments with more than 3 local ends in comparison to execution time of t\_coffee, mafft and clustalw for the same, but totally global alignments.}
 \end{figure}
 The time complexity of \SAFTWARE{} depends on the number of local ends of sequences. With zero local ends, the execution time of \SAFTWARE{} is comparable to the execution time of t\_coffee. however, most of the time we have more than zero local ends and execution time grows exponentially with them. So aligning sequences partially local with \SAFTWARE{} clearly takes more time than aligning sequences totally global with other alignment tools.  
@@ -386,6 +393,7 @@ The time complexity of \SAFTWARE{} depends on the number of local ends of sequen
   \begin{center}
     \includegraphics[width=1\columnwidth]{ac.eps}
   \end{center}
+  \label{fig:ac}
   \caption{Accuracy of \SAFTWARE{} compared to t\_coffee, mafft and clustalw}
 \end{figure}
 Since \SAFTWARE{} is an exact alignment tool accuracy is good. ... 
@@ -394,6 +402,7 @@ Since \SAFTWARE{} is an exact alignment tool accuracy is good. ...
   \begin{center}
     \includegraphics[width=1\columnwidth]{pse_compued_correctly.eps}
   \end{center}
+  \label{fig:pse}
   \caption{Position shift error of \SAFTWARE{} compared to t\_coffee, mafft and clustalw}
 \end{figure}
 ((Position shift error in alignments created with \SAFTWARE{} is significantly worse than in the other alignments based on t\_coffee, mafft and clustalW. Big position shift errors may arise from alignments with sequences with local ends, which are handled locally in \SAFTWARE{} and globally in the other alignment tools. The comparison on an alignment where some aequences are aligned only partially to a reference alignment where all the aequences are aligned completely then results in a bad PSE.)) Position shift error of alignments aligned with \SAFTWARE{} is much better than the PSE of alignments from the other alignment tools. Thats partly because \SAFTWARE{} uses an exact alignment algorithm. On the other hand, leading characters of left local sequences and ending characters of right local sequences can be left out in order to get the best alignment score. That means, that \SAFTWARE{} is not aligning only moderately suitable prefixes and suffixes of local sequences, that could shift the position of well alinable middle parts of sequences, what then would results in a bad PSE. Omitted sequence parts, however, do not effect the PSE.
