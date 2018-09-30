@@ -380,7 +380,7 @@ step for cleaning initial alignments before the release.
   \end{center}
   \caption{Execution time of \SAFTWARE{} for Alignments with more than 3 local ends in comparison to execution time of t\_coffee, mafft and clustalw for the same, but totally global alignments.}
 \end{figure}
-The time complexity of \SAFTWARE{} depends on the number of local ends of sequences. With zero local ends, the execution time of \SAFTWARE{} is approximately the as for t\_coffee. however, most of the time we have more than zero local ends and execution time grows exponentially with them. So aligning sequences partially local with \SAFTWARE{} clearly takes more time than aligning sequences totally global with other alignment tools.  
+The time complexity of \SAFTWARE{} depends on the number of local ends of sequences. With zero local ends, the execution time of \SAFTWARE{} is comparable to the execution time of t\_coffee. however, most of the time we have more than zero local ends and execution time grows exponentially with them. So aligning sequences partially local with \SAFTWARE{} clearly takes more time than aligning sequences totally global with other alignment tools.  
   
 \begin{figure}
   \begin{center}
@@ -392,11 +392,11 @@ Since \SAFTWARE{} is an exact alignment tool accuracy is good. ...
 
 \begin{figure}
   \begin{center}
-    \includegraphics[width=1\columnwidth]{pse.eps}
+    \includegraphics[width=1\columnwidth]{pse_compued_correctly.eps}
   \end{center}
   \caption{Position shift error of \SAFTWARE{} compared to t\_coffee, mafft and clustalw}
 \end{figure}
-Position shift error in alignments created with \SAFTWARE{} is significantly worse than in the other alignments based on t\_coffee, mafft and clustalW. Big position shift errors may arise from alignments with sequences with local ends, which are handled locally in \SAFTWARE{} and globally in the other alignment tools. The comparison on an alignment where some aequences are aligned only partially to a reference alignment where all the aequences are aligned completely then results in a bad PSE.
+((Position shift error in alignments created with \SAFTWARE{} is significantly worse than in the other alignments based on t\_coffee, mafft and clustalW. Big position shift errors may arise from alignments with sequences with local ends, which are handled locally in \SAFTWARE{} and globally in the other alignment tools. The comparison on an alignment where some aequences are aligned only partially to a reference alignment where all the aequences are aligned completely then results in a bad PSE.)) Position shift error of alignments aligned with \SAFTWARE{} is much better than the PSE of alignments from the other alignment tools. Thats partly because \SAFTWARE{} uses an exact alignment algorithm. On the other hand, leading characters of left local sequences and ending characters of right local sequences can be left out in order to get the best alignment score. That means, that \SAFTWARE{} is not aligning only moderately suitable prefixes and suffixes of local sequences, that could shift the position of well alinable middle parts of sequences, what then would results in a bad PSE. Omitted sequence parts, however, do not effect the PSE.
 
 If these sequences are then aligned only partially in \SAFTWARE{} alignments and aligned globally in the other tools
 }
