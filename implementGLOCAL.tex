@@ -358,11 +358,11 @@ We use two well known benchmark protein databases to test and evaluate
 generated database whereas \texttt{BAliBASE} \cite{balibase} has a manual
 step for cleaning initial alignments before the release. These sequences
 are subsequently aligned with \SAFTWARE{} as well as three of the most
-common alignment tools: \texttt{T-Coffee} \cite{***}, \texttt{MAFFT}
-\cite{***}, and \texttt{ClustalW} \cite{***}. \PFS{All three tools are
-  based on initial pairwise alignments and use essentially progressive
-  schemes, hence presenting efficient heuristics rather than exact
-  solutions.}
+common alignment tools: \texttt{T-Coffee} \cite{Notredame:00},
+\texttt{MAFFT} \cite{Katoh:05}, and \texttt{ClustalW}
+\cite{Larkin:07}. \PFS{All three tools are based on initial pairwise
+  alignments and use essentially progressive schemes, hence presenting
+  efficient heuristics rather than exact solutions.}
 
 Comparing Figs.~\ref{fig:littleLoc} and \ref{fig:manyLoc} we can see that
 the running time of \SAFTWARE, as expected, strongly depends on how many
@@ -372,47 +372,60 @@ algorithm, it is clear that is cannot be competitive in terms resource
 consumption. Much more interesting is the question whether the exact
 implementation of multi-way can achieve a further improvement in accuracy.
 
-\TODO{*** ENDE DER AUSBAUSTRECKE ***}
-
 %
 % while it yet has to be
 % optimized to run faster.
-% 
-In Fig.~\ref{fig:ac} we plotted the average accuracy $AC$ of our alignment which is defined as
+%
 
-\begin{equation*}
- AC = \frac{L - f}{L}
-\end{equation*}
+\PFS{The average accuracy, defined as $\mbox{AC}=(L-f)/L$ where $L$ is the
+  length of the alignment and $f$ is the number of columns deviating from
+  the reference alignment, is summarized in Fig.~\ref{fig:ac}. The data
+  show that \SAFTWARE{} provides a moderate but noticeable improvement
+  relative to all three heuristics, although we use a simple scoring model
+  and none of the protein-specific rules implemented e.g.\ in
+  \texttt{ClustalW}. 
 
-in an alignment of lenght $L$ with $f$ falsely aligned positions of our alignments compared to the reference alignment in the benchmark dataset. We see that the average accuracy of \SAFTWARE lies above all other programs.  
-
-\NR{To test how many alignment columns are correctly aligned we first enumerated }
-
-\FK{  
 \begin{figure}
   \begin{center}
     \includegraphics[width=1\columnwidth]{times_smaller4_boxplot.eps}
   \end{center}
+  \caption{Running time of \SAFTWARE{} for alignments with at most three
+    local ends compared to heuristic global aligners (\texttt{T-Coffee},
+    \texttt{MAFFT}, and \texttt{ClustalW}) that are commonly used in
+    large-scale bioinformatics applications.}
  \label{fig:littleLoc}
-  \caption{Execution time of \SAFTWARE{} for Alignments with less than 4 local ends in comparison to execution time of t\_coffee, mafft and clustalw for the same, but totally global alignments.}
 \end{figure}
 
 \begin{figure}
   \begin{center}
     \includegraphics[width=1\columnwidth]{times_bigger3_boxplot.eps}
   \end{center}
+  \caption{Running time of \SAFTWARE{} for alignments with more than three
+    local ends compared to heuristic global aligners.}
   \label{fig:manyLoc}
-  \caption{Execution time of \SAFTWARE{} for Alignments with more than 3 local ends in comparison to execution time of t\_coffee, mafft and clustalw for the same, but totally global alignments.}
 \end{figure}
-The time complexity of \SAFTWARE{} depends on the number of local ends of sequences. With zero local ends, the execution time of \SAFTWARE{} is comparable to the execution time of t\_coffee. however, most of the time we have more than zero local ends and execution time grows exponentially with them. So aligning sequences partially local with \SAFTWARE{} clearly takes more time than aligning sequences totally global with other alignment tools.  
-  
+
+As predicted by the theoretical considerations above, the time complexity
+of \SAFTWARE{} depends very strongly on the number of local ends of
+sequences.  Without local ends, i.e., for global alignments, the execution
+time of \SAFTWARE{} is comparable with \texttt{T-Coffee}. For partially
+local alignment we observe the expected exponential increase with the
+nummer of local ends. 
+
 \begin{figure}
   \begin{center}
     \includegraphics[width=1\columnwidth]{ac.eps}
   \end{center}
   \label{fig:ac}
-  \caption{Accuracy of \SAFTWARE{} compared to t\_coffee, mafft and clustalw}
+  \caption{Accuracy of \SAFTWARE{} compared to the heuristic global
+    alignment tools \texttt{T-Coffee}, \texttt{MAFFT}, and
+    \texttt{ClustalW}.}
 \end{figure}
+
+\TODO{Ende der Ausbaustrecke}
+
+
+
 Since \SAFTWARE{} is an exact alignment tool accuracy is good. ... 
 
 \begin{figure}
@@ -422,6 +435,7 @@ Since \SAFTWARE{} is an exact alignment tool accuracy is good. ...
   \label{fig:pse}
   \caption{Position shift error of \SAFTWARE{} compared to t\_coffee, mafft and clustalw}
 \end{figure}
+
 ((Position shift error in alignments created with \SAFTWARE{} is significantly worse than in the other alignments based on t\_coffee, mafft and clustalW. Big position shift errors may arise from alignments with sequences with local ends, which are handled locally in \SAFTWARE{} and globally in the other alignment tools. The comparison on an alignment where some aequences are aligned only partially to a reference alignment where all the aequences are aligned completely then results in a bad PSE.)) Position shift error of alignments aligned with \SAFTWARE{} is much better than the PSE of alignments from the other alignment tools. Thats partly because \SAFTWARE{} uses an exact alignment algorithm. On the other hand, leading characters of left local sequences and ending characters of right local sequences can be left out in order to get the best alignment score. That means, that \SAFTWARE{} is not aligning only moderately suitable prefixes and suffixes of local sequences, that could shift the position of well alinable middle parts of sequences, what then would results in a bad PSE. Omitted sequence parts, however, do not effect the PSE.
 
 If these sequences are then aligned only partially in \SAFTWARE{} alignments and aligned globally in the other tools
