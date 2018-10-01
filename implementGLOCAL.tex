@@ -301,7 +301,7 @@ $\prod_{k\in A} O(n_k)$-size table is required for each state $(A,D)$.
 Writing $g$=$|A_0\cap A^*|$ for the number of global sequences,
 $s=|A_0\setminus A^*|$ + $A^*\setminus A_0$ for the number sequences that
 are local and one end and global at the other, and $\ell$ for the number of
-local sequences, there are 
+local sequences, there are
 \begin{equation}
   h = 1^a 2^s 3^{\ell} 
 \end{equation} 
@@ -319,16 +319,16 @@ the state transitions is not constrained.  \PFS{With one index variable
   $O(2^N n^N h N)$ by attempting to implement equ.(\ref{eq:maxrec})
   instead of equ.(\ref{eq:maxrec2}).}
 
+\PFS{Backtracing is implemented in the usual manner: starting from the
+  position $I^*$ and state $(A^*,D^*)$ of the optimal score, \SAFTWARE{}
+  computes the transition that resulted in the optimal score. At present,
+  co-optimal solutions are not investigated. The first solution encountered
+  is used. The procedure then continues iteratively until the start state
+  is reached.}
 
+\TODO{Nancy, please check if anything of the stuff below is still needed,
+  otherwise delete.}
 
-
-\TODO{give a brief estimate of theoretical CPU and memory requirements}
-
-
-
-
-
-\TODO{FALCO should draft this: what exactly has been implemented} 
 \FK{
 \begin{itemize}
     \item an algorithm for exact global multiway-alignments is core of this implementation
@@ -353,17 +353,31 @@ the state transitions is not constrained.  \PFS{With one index variable
 
 \section{\uppercase{Benchmark}}
 
-%\subsection{Data}
-% I think this will be sufficiently little text that we don't need
-% subsection headings :)
-
 We use two well known benchmark protein databases to test and evaluate
 \SAFTWARE. \texttt{OXBench} \cite{oxbench} is a completely automatically
 generated database whereas \texttt{BAliBASE} \cite{balibase} has a manual
-step for cleaning initial alignments before the release. \NR{The sequences obtain are subsequently aligned with \SAFTWARE as well as three of the most common alignment tools: \texttt{T-Coffee}, \texttt{MAFFT}, and \texttt{ClustalW}.
+step for cleaning initial alignments before the release. These sequences
+are subsequently aligned with \SAFTWARE{} as well as three of the most
+common alignment tools: \texttt{T-Coffee} \cite{***}, \texttt{MAFFT}
+\cite{***}, and \texttt{ClustalW} \cite{***}. \PFS{All three tools are
+  based on initial pairwise alignments and use essentially progressive
+  schemes, hence presenting efficient heuristics rather than exact
+  solutions.}
 
-Comparing Figs.~\ref{fig:littleLoc} and \ref{fig:manyLoc} we can see that the time of \SAFTWARE strongly depends on how many localities we observe in one alignment while it yet has to be optimized to run faster. 
+Comparing Figs.~\ref{fig:littleLoc} and \ref{fig:manyLoc} we can see that
+the running time of \SAFTWARE, as expected, strongly depends on how many
+local ends needs to be handled in one alignment. Since \SAFTWARE{} is
+designed as a reference implementation of a much more expensive, exact
+algorithm, it is clear that is cannot be competitive in terms resource
+consumption. Much more interesting is the question whether the exact
+implementation of multi-way can achieve a further improvement in accuracy.
 
+\TODO{*** ENDE DER AUSBAUSTRECKE ***}
+
+%
+% while it yet has to be
+% optimized to run faster.
+% 
 In Fig.~\ref{fig:ac} we plotted the average accuracy $AC$ of our alignment which is defined as
 
 \begin{equation*}
@@ -372,7 +386,7 @@ In Fig.~\ref{fig:ac} we plotted the average accuracy $AC$ of our alignment which
 
 in an alignment of lenght $L$ with $f$ falsely aligned positions of our alignments compared to the reference alignment in the benchmark dataset. We see that the average accuracy of \SAFTWARE lies above all other programs.  
 
-To test how many alignment columns are correctly aligned we first enumerated }
+\NR{To test how many alignment columns are correctly aligned we first enumerated }
 
 \FK{  
 \begin{figure}
