@@ -68,7 +68,7 @@
   triples and even quadruples of sequences have become feasible and recent
   applications e.g.\ in the context breakpoint discovery have shown that
   mixed local/global multiple alignments can be of practical interest.
-  \SAFTWARE is the first implementation of partially local multiple
+  \SAFTWARE{} is the first implementation of partially local multiple
   alignments of a few sequences and provides convenient access to this
   family of specialized alignment algorithms.}
 
@@ -288,13 +288,14 @@ probabilistic version.
 
 \SAFTWARE{} is written in \texttt{Java} and uses only standard libraries.
 In principle, \SAFTWARE{} is capable of accepting an arbitrary number of
-input sequences \NR{in FASTA format and their localities}. However, the resource requirements quickly become
-prohibitive with the number of input sequences and in particular the number
-of local ends. \SAFTWARE{} first explicitly constructs the partial order
-$\prec$ and uses this information to allocated the memoization tables for
-the recursions. The partial order can be exported in \texttt{.dot} format
-and visualized using a standard graph drawing tools such as
-\texttt{graphviz}.
+input sequences (in FASTA format) \PFS{together with information on whether
+  each of their ends is to be treated globally or locally}. However, the
+resource requirements quickly become prohibitive with the number of input
+sequences and in particular the number of local ends. \SAFTWARE{} first
+explicitly constructs the partial order $\prec$ and uses this information
+to allocated the memoization tables for the recursions. The partial order
+can be exported in \texttt{.dot} format and visualized using a standard
+graph drawing tools such as \texttt{graphviz}.
 
 The partial order determines the required resources: one
 $\prod_{k\in A} O(n_k)$-size table is required for each state $(A,D)$.
@@ -414,67 +415,69 @@ than the three heuristics, Fig.~\ref{fig:pse}.
 
 \section{\uppercase{Discussion}}
 
+\SAFTWARE{} is primarily meant as a reference implemention against which
+specialized partially local alignments can be tested and benchmarked. We
+anticipate at least two use cases. First, \SAFTWARE{} is useful to to
+create test cases and help debugging during the development phase of a
+specialized exact implementation. More importantly, since \SAFTWARE{}
+computed exact solutions for a moderate number of input sequences, it can
+be used to generate ground-truth data against which faster heuristics can
+be compared. The current version of \SAFTWARE{} was not implemented to
+yield good performance while we expect that substantial gains can be
+achieved by parallelization with fine grained multithreading
+\cite{Martins:01}. Still it will need to be tested whether such a solution
+is realizable in Java.
 
-  \SAFTWARE{} is primarily meant as a reference implemention against which
-  specialized partially local alignments can be tested and benchmarked. We
-  anticipate at least two use cases. First, \SAFTWARE{} is useful to to
-  create test cases and help debugging during the development phase of a
-  specialized exact implementation. More importantly, since \SAFTWARE{}
-  computed exact solutions for a moderate number of input sequences, it can
-  be used to generate ground-truth data against which faster heuristics can
-  be compared. The current version of \SAFTWARE{} was not implemented 
-  to yield good performance while we expect that substantial gains can
-  be achieved by parallelization with fine grained multithreading
-    \cite{Martins:01}. Still it will need to be tested whether
-    such a solution is realizable in Java.
+While biological sequences tend to be rather long as compared to average
+word lengths we see a promising application to alignment of lexical items
+where prefixing and suffixing seem to play even a bigger role that in
+biology. Even though affixes can contain information, the root of words is
+most valuable when doing cross-linguistics comparisons. \PFS{For conceptual
+  examples we refer to \cite{Retzlaff:18a}.}
 
- \NR{While biological sequences tend to be rather long as compared to 
- average word lengths we see a promising application to alignment of 
-lexical items where prefixing and suffixing seem to play even a bigger role
-that in biology. Even though affixes can contain information, the root of
-words is most valuable when doing cross-linguistics comparisons.}
+The framework of \SAFTWARE{} lends itself to further extensions. First, it
+is easily possible to derive a probabilistic version. This essentially
+entails a change in the scoring from adding score contributions to
+multiplying with the corresponding Boltzmann factors. The coresponding
+outside algorithm could easily be constructed along the lines of
+\citet{Hoener:15b}. Another extension that could be realized very easily is
+to enforce additional constraints on state transitions. For example, it may
+be useful in a pattern-based applications to allow the transition to and
+from \textit{active} only concurrently, i.e., at the same position relative
+to remaining input sequences.
 
-  The framework of \SAFTWARE{} lends itself to further extensions. First,
-  it is easily possible to derive a probabilistic version. This essentially
-  entails a change in the scoring from adding score contributions to
-  multiplying with the corresponding Boltzmann factors. The coresponding
-  outside algorithm could easily be constructed along the lines of
-  \citet{Hoener:15b}. Another extension that could be realized very easily
-  is to enforce additional constraints on state transitions. For example,
-  it may be useful in a pattern-based applications to allow the transition
-  to and from \textit{active} only concurrently, i.e., at the same position
-  relative to remaining input sequences.
+Instead of treating state transitions in an acyclic manner, it is also
+possible to allow multiple transitions from \textit{active} back to
+\textit{inactive}. This would allow certain (context dependent) deletions
+to occur at a unit cost. Such ``exclusions'' have rarely been considered in
+sequence alignment but are of some interest for structured RNAs
+\cite{Schirmer:13}. This idea may be of use in particular when sequences
+are provided with structural annotation and deletions of entire structural
+elements are to be scored in a special way.
 
-  Instead of treating state transitions in an acyclic manner, it is also
-  possible to allow multiple transitions from \textit{active} back to
-  \textit{inactive}. This would allow certain (context dependent) deletions
-  to occur at a unit cost. Such ``exclusions'' have rarely been considered
-  in sequence alignment but are of some interest for structured RNAs
-  \cite{Schirmer:13}. This idea may be of use in particular when sequences
-  are provided with structural annotation and deletions of entire
-  structural elements are to be scored in a special way.  
-
-\TODO{Salbungsvolle schlusssaetze}
-\NR{The framework and its implementation presented here certainly 
-	hold a lot of potential for further modifications and inspiration for tools 
-	to perform specific tasks as well as optimizations.}
+\PFS{Advances in computing technology now make it feasible to compute exact
+  simultaneous solutions of alignment problems with more than two
+  sequences. A combinatorial diversity of distinct alignment problems
+  arises in this setting just by allowing to distinguish local and global
+  ends separately for each input. We suspect that additional variations on
+  the theme are of interest, e.g., requiring additional constraints on
+  pairwise overlaps. The framework and the implementation presented here is
+  a first step towards an systematic exploration of this largely uncharted
+  universe of alignments, many of which we suspect will be of practical use
+  in computational biology.} 
 
 \section*{\uppercase{Acknowledgements}}
 
 NR gratefully acknowledges the hospitality of the Santa Fe Institute, where
-parts of this work were performed, as well as travel support by the ASU-SFI Center for Biosocial
-  Complex Systems. The Competence Center for Scalable Data Services and
-  Solutions (ScaDS) Dresden/Leipzig is funded by BMBF grant 01IS14014B.
+parts of this work were performed, as well as travel support by the ASU-SFI
+Center for Biosocial Complex Systems. The Competence Center for Scalable
+Data Services and Solutions (ScaDS) Dresden/Leipzig is funded by BMBF grant
+01IS14014B.
 
-\vfill
+%\vfill
 \bibliographystyle{apalike}
 {\small
 \bibliography{implementGLOCAL}}
-
-\section*{\uppercase{Appendix}}
-
-\TODO{I don't think we will have an appendix.} 
-
 
 \vfill
 \end{document}
