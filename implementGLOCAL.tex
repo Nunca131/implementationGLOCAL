@@ -68,7 +68,7 @@
   triples and even quadruples of sequences have become feasible and recent
   applications e.g.\ in the context breakpoint discovery have shown that
   mixed local/global multiple alignments can be of practical interest.
-  \DINGENS{} is the first implementation of partially local multiple
+  \SAFTWARE is the first implementation of partially local multiple
   alignments of a few sequences and provides convenient access to this
   family of specialized alignment algorithms.}
 
@@ -272,23 +272,23 @@ $k\in A\setminus A'$ or $k\in D\setminus D'$ implies $\pi_k=1$.
 
 We have implemented a general alignment algorithm for partially local
 alignments with additive gap costs, starting from
-equ.(\ref{eq:maxrec2}). In the practical implementation we omit the the
+Equ.(\ref{eq:maxrec2}). In the practical implementation we omit the the
 formal initial state $(A_0,\emptyset)$ and separately initialize all
 left-local sequences $k$ both in the inactive and the active state for
 $I_k=0$. Similarly, we catch die final states at the right end of
 right-local sequences without explicitly considering a final transition to
 the \textit{dead} state after the last letter has been included into the
 alignment. Equ.(\ref{eq:maxrec2}) in general requires the consideration of
-more state changes in each step than equ.(\ref{eq:maxrec}). While
-equ.(\ref{eq:maxrec}) only considers the Hasse diagraph of the partial
+more state changes in each step than Equ.(\ref{eq:maxrec}). While
+Equ.(\ref{eq:maxrec}) only considers the Hasse diagraph of the partial
 order $\prec$, its transitive closure is required for
-equ.(\ref{eq:maxrec2}). On the other hand, equ.(\ref{eq:maxrec2}) provides
+Equ.(\ref{eq:maxrec2}). On the other hand, Equ.(\ref{eq:maxrec2}) provides
 a very convenient starting point for later extensions e.g.\ to a
 probabilistic version. 
 
 \SAFTWARE{} is written in \texttt{Java} and uses only standard libraries.
 In principle, \SAFTWARE{} is capable of accepting an arbitrary number of
-input sequences. However, the resource requirements quickly become
+input sequences \NR{in FASTA format and their localities}. However, the resource requirements quickly become
 prohibitive with the number of input sequences and in particular the number
 of local ends. \SAFTWARE{} first explicitly constructs the partial order
 $\prec$ and uses this information to allocated the memoization tables for
@@ -310,24 +310,21 @@ semi-local sequences change either state from \textit{inactive} to to
 \textit{active} or from \textit{active} to \textit{dead}, while local
 sequences can pass through all three states. All combinations of these
 states must be considered, since the relative order (between sequences) of
-the state transitions is not constrained.  \PFS{With one index variable
+the state transitions is not constrained. With one index variable
   iterating over each of the $N$ sequences of length $O(n)$, the memory
   requirements are $O(n^N)$ for each state.  The evaluation of the
   recursion requires $O(2^N)$ score computations for each transition
   between columns and states, resulting in an upper bound of
   $O(2^N n^N h^2)$ effort, which could in principle be reduced to
-  $O(2^N n^N h N)$ by attempting to implement equ.(\ref{eq:maxrec})
-  instead of equ.(\ref{eq:maxrec2}).}
+  $O(2^N n^N h N)$ by attempting to implement Equ.(\ref{eq:maxrec})
+  instead of Equ.(\ref{eq:maxrec2}).
 
-\PFS{Backtracing is implemented in the usual manner: starting from the
+Backtracing is implemented in the usual manner: starting from the
   position $I^*$ and state $(A^*,D^*)$ of the optimal score, \SAFTWARE{}
   computes the transition that resulted in the optimal score. At present,
   co-optimal solutions are not investigated. The first solution encountered
-  is used. The procedure then continues iteratively until the start state
-  is reached.}
-
-\TODO{Input formats ...  algorithms to read sequences (fasta), score
-  matrices and localities from input files}
+  is used. The procedure then continues iteratively until a valid start state
+  is reached.
 
 \section{\uppercase{Benchmark}}
 
@@ -338,9 +335,9 @@ step for cleaning initial alignments before the release. These sequences
 are subsequently aligned with \SAFTWARE{} as well as three of the most
 common alignment tools: \texttt{T-Coffee} \cite{Notredame:00},
 \texttt{MAFFT} \cite{Katoh:05}, and \texttt{ClustalW}
-\cite{Larkin:07}. \PFS{All three tools are based on initial pairwise
+\cite{Larkin:07}. All three tools are based on initial pairwise
   alignments and use essentially progressive schemes, hence presenting
-  efficient heuristics rather than exact solutions.}
+  efficient heuristics rather than exact solutions.
 
 \begin{figure}
   \begin{center}
@@ -364,15 +361,15 @@ common alignment tools: \texttt{T-Coffee} \cite{Notredame:00},
 
 Comparing Figs.~\ref{fig:littleLoc} and \ref{fig:manyLoc} we can see that
 the running time of \SAFTWARE, as expected, strongly depends on how many
-local ends needs to be handled in one alignment. \PFS{Without local ends,
+local ends needs to be handled in one alignment. Without local ends,
   i.e., for global alignments, the execution time of \SAFTWARE{} is
-  comparable with \texttt{T-Coffee}. For partially local alignment we
+  comparable with \texttt{T-Coffee}. For partially local alignments we
   observe the expected exponential increase with the nummer of local
   ends. Since \SAFTWARE{} is designed as a reference implementation of a
-  much more expensive, exact algorithm, it is clear that is cannot be
+  much more expensive, exact algorithm, it is clear that it cannot be
   competitive in terms resource consumption. Much more interesting is the
-  question whether the exact implementation of multi-way can achieve a
-  further improvement in accuracy.}
+  question whether our exact implementation of multi-way can achieve a
+  further improvement in accuracy.
 
 \begin{figure}
   \begin{center}
@@ -384,13 +381,13 @@ local ends needs to be handled in one alignment. \PFS{Without local ends,
     \label{fig:ac}
 \end{figure}
 
-\PFS{The average accuracy, defined as $\mbox{AC}=(L-f)/L$ where $L$ is the
+The average accuracy, defined as $\mbox{AC}=(L-f)/L$ where $L$ is the
   length of the alignment and $f$ is the number of columns deviating from
   the reference alignment, is summarized in Fig.~\ref{fig:ac}. The data
   show that \SAFTWARE{} provides a moderate but noticeable improvement
   relative to all three heuristics, although we use a simple scoring model
   and none of the protein-specific rules implemented e.g.\ in
-  \texttt{ClustalW}. }
+  \texttt{ClustalW}. 
 
 \begin{figure}
   \begin{center}
@@ -417,7 +414,7 @@ than the three heuristics, Fig.~\ref{fig:pse}.
 
 \section{\uppercase{Discussion}}
 
-\PFS{%
+
   \SAFTWARE{} is primarily meant as a reference implemention against which
   specialized partially local alignments can be tested and benchmarked. We
   anticipate at least two use cases. First, \SAFTWARE{} is useful to to
@@ -425,20 +422,22 @@ than the three heuristics, Fig.~\ref{fig:pse}.
   specialized exact implementation. More importantly, since \SAFTWARE{}
   computed exact solutions for a moderate number of input sequences, it can
   be used to generate ground-truth data against which faster heuristics can
-  be compared. \FK{ The current implementation of \SAFTWARE{} has not been
-    for performance.  We expect that substantial performance gains can be
-    achieved by parallelization. Fine grained multithreading
-    \cite{Martins:01} seems promising. It will need to be tested whether
-    such a solution can be realized in Java.}
+  be compared. The current version of \SAFTWARE{} was not implemented 
+  to yield good performance while we expect that substantial gains can
+  be achieved by parallelization with fine grained multithreading
+    \cite{Martins:01}. Still it will need to be tested whether
+    such a solution is realizable in Java.
 
-  \TODO{maybe also add a sentence or two about potential application to
-    language data, where the generality w.r.t the number of input sequences
-    becomes important has all the sequence length $n$ are small.}
+ \NR{While biological sequences tend to be rather long as compared to 
+ average word lengths we see a promising application to alignment of 
+lexical items where prefixing and suffixing seem to play even a bigger role
+that in biology. Even though affixes can contain information, the root of
+words is most valuable when doing cross-linguistics comparisons.}
 
   The framework of \SAFTWARE{} lends itself to further extensions. First,
   it is easily possible to derive a probabilistic version. This essentially
   entails a change in the scoring from adding score contributions to
-  multiplying with the corresponding Boltzmann factors. The corresponding
+  multiplying with the corresponding Boltzmann factors. The coresponding
   outside algorithm could easily be constructed along the lines of
   \citet{Hoener:15b}. Another extension that could be realized very easily
   is to enforce additional constraints on state transitions. For example,
@@ -447,23 +446,25 @@ than the three heuristics, Fig.~\ref{fig:pse}.
   relative to remaining input sequences.
 
   Instead of treating state transitions in an acyclic manner, it is also
-  possibly to allow multiple transitions from \textit{active} back to
+  possible to allow multiple transitions from \textit{active} back to
   \textit{inactive}. This would allow certain (context dependent) deletions
   to occur at a unit cost. Such ``exclusions'' have rarely been considered
   in sequence alignment but are of some interest for structured RNAs
   \cite{Schirmer:13}. This idea may be of use in particular when sequences
   are provided with structural annotation and deletions of entire
-  structural elements are to be scored in a special way.  }
+  structural elements are to be scored in a special way.  
 
 \TODO{Salbungsvolle schlusssaetze}
+\NR{The framework and its implementation presented here certainly 
+	hold a lot of potential for further modifications and inspiration for tools 
+	to perform specific tasks as well as optimizations.}
 
 \section*{\uppercase{Acknowledgements}}
 
 NR gratefully acknowledges the hospitality of the Santa Fe Institute, where
-parts of this work were performed, as well as travel support \TODO{check
-  with Manfred if this the correct ack! by ASU-SFI Center for Biosocial
+parts of this work were performed, as well as travel support by the ASU-SFI Center for Biosocial
   Complex Systems. The Competence Center for Scalable Data Services and
-  Solutions (ScaDS) Dresden/Leipzig is funded by BMBF grant 01IS14014B.}
+  Solutions (ScaDS) Dresden/Leipzig is funded by BMBF grant 01IS14014B.
 
 \vfill
 \bibliographystyle{apalike}
