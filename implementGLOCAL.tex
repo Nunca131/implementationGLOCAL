@@ -10,6 +10,7 @@
 \usepackage{multicol}
 \usepackage{pslatex}
 \usepackage{natbib}
+\let\cite\citep
 %%%% nasty hack to get rid of conflict of an annoying conflict
 \makeatletter
 \let\bibhang\@undefined
@@ -39,20 +40,20 @@
 
 \title{A General Framework for Exact Partially Local Alignments}
 
-\author{\authorname{Falco Kirchner\sup{1},
-    Nancy Retzlaff\sup{2,1}, and
-    Peter F.\ Stadler\sup{1,2,3,4,5}}
-  \affiliation{\sup{1}Bioinformatics Group, Department of Computer Science,
-      and Interdisciplinary Center for Bioinformatics,
-      H{\"a}rtelstra{\ss}e 16-18, D-04107 Leipzig, Germany}
-  \affiliation{\sup{2}Max Planck Institute for Mathematics in the Sciences,
-    Inselstra{\ss}e 22, D-04103 Leipzig, Germany}
-  \affiliation{\sup{3}Institute for Theoretical Chemistry, University of Vienna,
-    W{\"a}hringerstra{\ss}e 17, A-1090 Wien, Austria}
-  \affiliation{\sup{4}Santa Fe Institute, 1399 Hyde Park Road,
-    Santa Fe NM 87501, USA}
-  \email{FALCO@nirwana.net, \{nancy,studla\}@bioinf.uni-leipzig.de}
-}
+\author{\authorname{Falco Kirchner\sup{1}, Nancy Retzlaff\sup{2,1}, and
+    Peter F.\ Stadler\sup{1,2,3,4,5}} \affiliation{\sup{1}Bioinformatics
+    Group, Department of Computer Science, Interdisciplinary Center for
+    Bioinformatics, and Competence Center for Scalable Data Services and
+    Solutions Dresden/Leipzig, Universit{\"a}t Leipzig
+    H{\"a}rtelstra{\ss}e 16-18, D-04107 Leipzig,
+    Germany}
+  \affiliation{\sup{2}Max Planck Institute for Mathematics in
+    the Sciences, Inselstra{\ss}e 22, D-04103 Leipzig, Germany}
+  \affiliation{\sup{3}Institute for Theoretical Chemistry, University of
+    Vienna, W{\"a}hringerstra{\ss}e 17, A-1090 Wien, Austria}
+  \affiliation{\sup{4}Santa Fe Institute, 1399 Hyde Park Road, Santa Fe NM
+    87501, USA} \email{FALCO@nirwana.net,
+    \{nancy,studla\}@bioinf.uni-leipzig.de} }
 
 \keywords{Multiple sequence alignments, dynamics programming} 
 
@@ -83,8 +84,8 @@ problems: a scoring function evaluates the similarities in an alignment
 column and/or the pattern of gaps. Multiple alignments are almost
 exclusively treated globally, that is, all parts of the input sequence is
 scored. The notion of ``local multiple alignments'' refer to short, usually
-gapless patterns \citep{Lukashin:99,Blanchette:02} arising in phylogenetic
-footprinting and related pattern discovery problems  \citep{Tabei:09}.
+gapless patterns \cite{Lukashin:99,Blanchette:02} arising in phylogenetic
+footprinting and related pattern discovery problems \cite{Tabei:09}.
 
 Local variants of sequence alignment, on the hand, play an important role
 in pairwise alignments. Local alignments, i.e., maximally similar
@@ -93,11 +94,10 @@ conserved domains.  The semi-global variant of pairwise alignment, in which
 one sequence, usually called ``query'', is expected to appear as
 approximate substring of a larger ``subject'', again is a natural
 formalization of homology search, implemented e.g.\ in \texttt{gotohscan}
-\citep{Hertel:09a}.  Overlap alignments
-\citep{Jones:04} allowing free end gaps on all sequences have applications
-e.g.\ in sequence assembly \citep{Rausch:09}. Until recently, the
-generalization of these variants to more than two sequences has received
-very little attention.
+\cite{Hertel:09a}.  Overlap alignments \cite{Jones:04} allowing free end
+gaps on all sequences have applications e.g.\ in sequence assembly
+\cite{Rausch:09}. Until recently, the generalization of these variants to
+more than two sequences has received very little attention.
 
 Pairwise alignment problems can be solved exactly for a wide range of cost
 models by means of dynamic programming. In fact, the algorithms of
@@ -105,15 +105,15 @@ models by means of dynamic programming. In fact, the algorithms of
 alignments, and the extension to affine gap costs by \citet{Gotoh:82} are
 among the early, paradigmatic example of dynamic programming. The basic
 recursive structure is readily extended to more than two input sequences
-\citep{Carillo:88,Lipman:89}; the time and space complexity, however, grows
+\cite{Carillo:88,Lipman:89}; the time and space complexity, however, grows
 exponentially with the number of sequences. Exact dynamic programming
 solutions thus have been used in practice only for 3-way
-\citep{Gotoh:86,Dewey:01,Konagurthu:04,Kruspe:07a} or 4-way
-\citep{Steiner:11a} alignments. Since multipe sequence alignment problems
+\cite{Gotoh:86,Dewey:01,Konagurthu:04,Kruspe:07a} or 4-way
+\cite{Steiner:11a} alignments. Since multipe sequence alignment problems
 (for arbitrary numbers of input sequences $X$ are typically NP-hard
-\citep{Kececioglu:93,Wang:94,Bonizzoni:01,Just:01,Manthey:03,Elias:06},
-they are solved by heuristic approximation algorithms, see
-\citet{Baichoo:17} for a recent review.
+\cite{Kececioglu:93,Wang:94,Bonizzoni:01,Just:01,Manthey:03,Elias:06}, they
+are solved by heuristic approximation algorithms, see \citet{Baichoo:17}
+for a recent review.
 
 As the exact 3-way and 4-way alignments have increased in usage, variants
 of the problem that combine local and global alignments have been proposed
@@ -166,8 +166,8 @@ $(A,D)$ that are comparable w.r.t.\ the partial order
       D'\subseteq D
     \end{cases}
 \end{equation}
-The state changes can be performed stepwisely. As shown in
-\cite{Retzlaff:18a}, $(A',D')$ is an immediate predecessor of $(A,D)$ if
+The state changes can be performed stepwisely. As shown by
+\citet{Retzlaff:18a}, $(A',D')$ is an immediate predecessor of $(A,D)$ if
 either exactly on one \textit{inactive} sequence become \textit{active} or
 exaclty one \textit{active} sequence transitions to the dead state.  We
 denote this relation by $\pprec$. The initial condition is $A=A_0$, where
@@ -233,7 +233,7 @@ appendix of \citet{Retzlaff:18a}.
 The backtracing recursion is a rather straightforwards generalization of
 the backtracing scheme for the Smith-Waterman algorithm. The first step is
 to find the optimal score partially local alignment. Denote by $(A^*,D^*)$
-that unique maximal state w.r.t.\ $preceq$, i.e., $A^*$ is the set of all
+that unique maximal state w.r.t.\ $\preceq$, i.e., $A^*$ is the set of all
 right-global sequences and $D^*$ is the set of all right-local
 sequences. Hence $A^*\cup D^*$ contains all input sequences.  The optimal
 score is the maximum over all multi-indices $I$ with constraint that
@@ -252,7 +252,7 @@ that it provides more than one way to obtain a particular partial alignment
 (characterized by $I,A,D$) since state transition can be performed in
 arbitrary order. As a consequence, equ.(\ref{eq:maxrec}) cannot be used to
 compute partition functions over alignments, and hence to obtain a
-probabilistic version. As described in some detail in \citet{Retzlaff:18a},
+probabilistic version. As described in some detail by \citet{Retzlaff:18a},
 unambiguous recursions can be constructed by allowing state transitions
 from \textit{inactive} to \textit{active} and from \textit{active} to
 \textit{dead} for a sequence $k$ only in conjunction with appending of a
@@ -326,30 +326,8 @@ the state transitions is not constrained.  \PFS{With one index variable
   is used. The procedure then continues iteratively until the start state
   is reached.}
 
-\TODO{Nancy, please check if anything of the stuff below is still needed,
-  otherwise delete.}
-
-\FK{
-\begin{itemize}
-    \item an algorithm for exact global multiway-alignments is core of this implementation
-    \item an algorithm to construct the hasse diagram (derived from localities)
-    \item iteration through the hasse graph computing the score matrices for every state in the right order. 
-    \begin{itemize}
-        \item to compute one state all the previous states have to be computed
-        \item (modified) exact global multiway-alignments per state (for
-          each entry of the score matrix it checks whether it can use
-          values of the score matrices of its previous states).
-          \TODO{what exactly do you mean here?} \\
-          when it computes an entry of the actual score matrix it does not only take the three previous entries of this matrix into account, but also values of its previous matrices/states
-    \end{itemize}
-    \item an algorithm for backtracking
-    \begin{itemize}
-        \item finds the best starting point in one of the potentially many final states/scoring matrices
-        \item tracks back through state transitions 
-    \end{itemize}
-    \item algorithms to read sequences (fasta), score matrices and localities from input files
-\end{itemize}
-}
+\TODO{Input formats ...  algorithms to read sequences (fasta), score
+  matrices and localities from input files}
 
 \section{\uppercase{Benchmark}}
 
@@ -400,10 +378,10 @@ local ends needs to be handled in one alignment. \PFS{Without local ends,
   \begin{center}
     \includegraphics[width=1\columnwidth]{ac.eps}
   \end{center}
-  \label{fig:ac}
   \caption{Accuracy of \SAFTWARE{} compared to the heuristic global
     alignment tools \texttt{T-Coffee}, \texttt{MAFFT}, and
     \texttt{ClustalW}.}
+    \label{fig:ac}
 \end{figure}
 
 \PFS{The average accuracy, defined as $\mbox{AC}=(L-f)/L$ where $L$ is the
@@ -414,87 +392,68 @@ local ends needs to be handled in one alignment. \PFS{Without local ends,
   and none of the protein-specific rules implemented e.g.\ in
   \texttt{ClustalW}. }
 
-
-
-\TODO{Ende der Ausbaustrecke}
-
 \begin{figure}
   \begin{center}
     \includegraphics[width=1\columnwidth]{pse_compued_correctly.eps}
   \end{center}
+  \caption{Position shift error of \SAFTWARE{} compared to the heuristic
+    global aligners \texttt{T-Coffee}, \texttt{MAFFT}, and
+    \texttt{ClustalW}.}
   \label{fig:pse}
-  \caption{Position shift error of \SAFTWARE{} compared to t\_coffee, mafft
-    and clustalw}
 \end{figure}
 
-The position shift error $\mbox{PSE}$ serves as an alternative measure
-of alignment accuracy. \TODO{how is this defined, reference?}
-
-% ((Position shift error in alignments created with \SAFTWARE{} is
-% significantly worse than in the other alignments based on t\_coffee, mafft
-% and clustalW. Big position shift errors may arise from alignments with
-% sequences with local ends, which are handled locally in \SAFTWARE{} and
-% globally in the other alignment tools. The comparison on an alignment where
-% some aequences are aligned only partially to a reference alignment where
-% all the aequences are aligned completely then results in a bad PSE.))
-
-\SAFTWARE{} exhibits significantly smaller position shift errors than the
-three heuristics.
-
-\TODO{Ende der Ausbaustrecke} 
-
-
-\NR{Position shift error of alignments aligned with \SAFTWARE{} is much better than the PSE of alignments from the other alignment tools. Thats partly because \SAFTWARE{} uses an exact alignment algorithm. On the other hand, leading characters of left local sequences and ending characters of right local sequences can be left out in order to get the best alignment score. That means, that \SAFTWARE{} is not aligning only moderately suitable prefixes and suffixes of local sequences, that could shift the position of well alinable middle parts of sequences, what then would results in a bad PSE. Omitted sequence parts, however, do not effect the PSE.
-
-If these sequences are then aligned only partially in \SAFTWARE{} alignments and aligned globally in the other tools
-}
-
-\TODO{Falco: please also check explicitly that your code works correctly
-  for pairwise local alignments against an implementation Smith-Waterman.
-  I just want to be sure that we handle the boundary cases with only a
-  single active sequence, i.e., nothing to do, correctly.} 
-
-\TODO{maybe include a figure with an example output!} 
+The position shift error $\mbox{PSE}$ as defined by \citet{oxbench} serves
+as an alternative measure of alignment accuracy. Consider a pair of
+(mis)matched positions $i$ in sequence $x$ and $j$ in sequence $y$ in the
+reference alignment. In the test alignment we consider the same position
+$i$ in $x$ and its (mis)matched position $j'$ in $y$ and measure the
+distance $\delta=|j-j'|$. A similar rule is used to compute $\delta$ if
+there is an in/del between $x$ and $y$ at position $i$. For the details we
+refer to \cite{oxbench}. The $\mbox{PSE}$ is the average of the
+contributions $\delta$ of all mismatched pairs in the reference alignment.
+Omitted prefixes and suffixes at local ends do not enter the $\mbox{PSE}$
+score. \SAFTWARE{} exhibits significantly smaller position shift errors
+than the three heuristics, Fig.~\ref{fig:pse}.
 
 \section{\uppercase{Discussion}}
 
 \PFS{%
-\SAFTWARE{} is primarily meant as a reference implemention against which
-specialized partially local alignments can be tested and benchmarked. We
-anticipate at least two use cases. First, \SAFTWARE{} is useful to to
-create test cases and help debugging during the development phase of a
-specialized exact implementation. More importantly, since \SAFTWARE{}
-computed exact solutions for a moderate number of input sequences, it can
-be used to generate ground-truth data against which faster heuristics can
-be compared. 
+  \SAFTWARE{} is primarily meant as a reference implemention against which
+  specialized partially local alignments can be tested and benchmarked. We
+  anticipate at least two use cases. First, \SAFTWARE{} is useful to to
+  create test cases and help debugging during the development phase of a
+  specialized exact implementation. More importantly, since \SAFTWARE{}
+  computed exact solutions for a moderate number of input sequences, it can
+  be used to generate ground-truth data against which faster heuristics can
+  be compared. \FK{ The current implementation of \SAFTWARE{} has not been
+    for performance.  We expect that substantial performance gains can be
+    achieved by parallelization. Fine grained multithreading
+    \cite{Martins:01} seems promising. It will need to be tested whether
+    such a solution can be realized in Java.}
 
-The framework of \SAFTWARE{} lends itself to further extensions. First, it
-is easily possible to derive a probabilistic version. This essentially
-entails a change in the scoring from adding score contributions to
-multiplying with the corresponding Boltzmann factors. The corresponding
-outside algorithm could easily be constructed along the lines of
-\cite{Hoener:15b}. Another extension that could be realized very easily is
-to enforce additional constraints on state transitions. For example, it may
-be useful in a pattern-based applications to allow the transition to and
-from \textit{active} only concurrently, i.e., at the same position relative
-to remaining input sequences.
+  \TODO{maybe also add a sentence or two about potential application to
+    language data, where the generality w.r.t the number of input sequences
+    becomes important has all the sequence length $n$ are small.}
 
-Instead of treating state transitions in an acyclic manner, it is also
-possibly to allow multiple transitions from \textit{active} back to
-\textit{inactive}. This would allow certain (context dependent) deletions
-to occur at a unit cost. Such ``exclusions'' have rarely been considered in
-sequence alignment but are of some interest for structured RNAs
-\cite{Schirmer:13}. This idea may be of use in particular when sequences
-are provided with structural annotation and deletions of entire structural
-elements are to be scored in a special way.
-}
+  The framework of \SAFTWARE{} lends itself to further extensions. First,
+  it is easily possible to derive a probabilistic version. This essentially
+  entails a change in the scoring from adding score contributions to
+  multiplying with the corresponding Boltzmann factors. The corresponding
+  outside algorithm could easily be constructed along the lines of
+  \citet{Hoener:15b}. Another extension that could be realized very easily
+  is to enforce additional constraints on state transitions. For example,
+  it may be useful in a pattern-based applications to allow the transition
+  to and from \textit{active} only concurrently, i.e., at the same position
+  relative to remaining input sequences.
 
-\FK{
-This implementation is not yet optimized in terms of performance. One solution could be an approach of parallelization, namely fine grained multithreading \cite{Martins:01}. But it still has to be shown if this solution is applicable in Java.}
-
-\TODO{maybe also add a sentence or two about potential application to
-  language data, where the generality w.r.t the number of input sequences
-  becomes important has all the sequence length $n$ are small.}
+  Instead of treating state transitions in an acyclic manner, it is also
+  possibly to allow multiple transitions from \textit{active} back to
+  \textit{inactive}. This would allow certain (context dependent) deletions
+  to occur at a unit cost. Such ``exclusions'' have rarely been considered
+  in sequence alignment but are of some interest for structured RNAs
+  \cite{Schirmer:13}. This idea may be of use in particular when sequences
+  are provided with structural annotation and deletions of entire
+  structural elements are to be scored in a special way.  }
 
 \TODO{Salbungsvolle schlusssaetze}
 
@@ -502,8 +461,9 @@ This implementation is not yet optimized in terms of performance. One solution c
 
 NR gratefully acknowledges the hospitality of the Santa Fe Institute, where
 parts of this work were performed, as well as travel support \TODO{check
-  with Manfred if this the correct ack! by ASU-SFI
-  Center for Biosocial Complex Systems.}
+  with Manfred if this the correct ack! by ASU-SFI Center for Biosocial
+  Complex Systems. The Competence Center for Scalable Data Services and
+  Solutions (ScaDS) Dresden/Leipzig is funded by BMBF grant 01IS14014B.}
 
 \vfill
 \bibliographystyle{apalike}
