@@ -1,13 +1,23 @@
+# time plots
 times = read.table("times_locs.txt", header = TRUE, sep = "\t")
 times1 <- times[ which(times$localEndCount < 4),]
 times2 <- times[ which(times$localEndCount > 3),]
 barplot(log(colMeans(times1[,2:5], na.rm = TRUE)), main="", xlab="application", ylab="log(time in millis)")
 barplot(log(colMeans(times2[,2:5], na.rm = TRUE)), main="", xlab="application", ylab="log(time in millis)")
 
+# combined times plot
+names(times1)[2]<-paste("uniAlign1")
+names(times2)[2]<-paste("uniAlign2")
+times_all = merge(x = times1, y = times2, all = TRUE)
+boxplot(log(times_all[c(6,7,2,3,4)]), outline=FALSE, xlab="application", ylab="log(time in ms)", cex.lab=2, cex.axis=2, las=1)
+
+# ac plot
 ac = read.table("ac.txt", header = TRUE, sep = "\t")
 boxplot(ac[,2:5], outline=FALSE)
+boxplot(ac[,2:5], outline=FALSE, cex.lab=2, cex.axis=2, las=1)
 
+#pse plot
 pse = read.table("pse.txt", header = TRUE, sep = "\t")
 boxplot(pse[,2:5], outline=FALSE)
-
+boxplot(pse[,2:5], outline=FALSE, cex.lab=2, cex.axis=2, las=1)
 
