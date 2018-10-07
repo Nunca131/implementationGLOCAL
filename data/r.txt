@@ -9,15 +9,18 @@ barplot(log(colMeans(times2[,2:5], na.rm = TRUE)), main="", xlab="application", 
 names(times1)[2]<-paste("uniAlign1")
 names(times2)[2]<-paste("uniAlign2")
 times_all = merge(x = times1, y = times2, all = TRUE)
+names(times_all)[2]<-paste("T-Coffee")
 boxplot(log(times_all[c(6,7,2,3,4)]), outline=FALSE, xlab="application", ylab="log(time in ms)", cex.lab=2, cex.axis=2, las=1)
 
 # ac plot
 ac = read.table("ac.txt", header = TRUE, sep = "\t")
+names(ac)[3]<-paste("T-Coffee")
 boxplot(ac[,2:5], outline=FALSE)
-boxplot(ac[,2:5], outline=FALSE, cex.lab=2, cex.axis=2, las=1)
+boxplot(ac[,2:5], outline=FALSE, xlab="application", ylab="AC", cex.lab=2, cex.axis=2, las=1)
 
 #pse plot
 pse = read.table("pse.txt", header = TRUE, sep = "\t")
+names(pse)[3]<-paste("T-Coffee")
 boxplot(pse[,2:5], outline=FALSE)
 boxplot(pse[,2:5], outline=FALSE, cex.lab=2, cex.axis=2, las=1)
 
