@@ -34,7 +34,7 @@
 
 \newcommand{\DINGENS}[1]{\texttt{DINGENS}}
 \newcommand{\pprec}{\mathrel{\prec\!\!\!\prec}}
-\newcommand{\SAFTWARE}{\texttt{vaPLA}} %{\TODO{\texttt{SAFTWARE}}}
+\newcommand{\SAFTWARE}{\texttt{uniAlign}} %{\TODO{\texttt{SAFTWARE}}}
 
 \begin{document}
 
@@ -345,24 +345,24 @@ common alignment tools: \texttt{T-Coffee} \cite{Notredame:00},
     \includegraphics[width=1\columnwidth]{times_combined.eps}
   \end{center}
   \caption{Running time of \SAFTWARE{} for alignments with at most three
-    local ends (\texttt{\SAFTWARE{}1}) and for alignments with more than three
-    local ends (\texttt{\SAFTWARE{}2}) compared to heuristic global aligners (\texttt{T-Coffee},
-    \texttt{MAFFT}, and \texttt{ClustalW}) that are commonly used in
-    large-scale bioinformatics applications.}
+    local ends (\texttt{\SAFTWARE{}1}) and for alignments with more than
+    three local ends (\texttt{\SAFTWARE{}2}) compared to heuristic global
+    aligners (\texttt{T-Coffee}, \texttt{MAFFT}, and \texttt{ClustalW})
+    that are commonly used in large-scale bioinformatics applications.}
   \label{fig:manyLoc}
 \end{figure}
 
-Comparing Figs.~\ref{fig:littleLoc} and \ref{fig:manyLoc} we can see that
-the running time of \SAFTWARE, as expected, strongly depends on how many
-local ends needs to be handled in one alignment. Without local ends,
-  i.e., for global alignments, the execution time of \SAFTWARE{} is
-  comparable with \texttt{T-Coffee}. For partially local alignments we
-  observe the expected exponential increase with the nummer of local
-  ends. Since \SAFTWARE{} is designed as a reference implementation of a
-  much more expensive, exact algorithm, it is clear that it cannot be
-  competitive in terms resource consumption. Much more interesting is the
-  question whether our exact implementation of multi-way can achieve a
-  further improvement in accuracy.
+Comparing \PFS{the performance for few and many local ends, respectively,
+  we can see in Fig.~\ref{fig:manyLoc}} that the running time of \SAFTWARE,
+as expected, strongly depends on how many local ends needs to be handled in
+one alignment. Without local ends, i.e., for global alignments, the
+execution time of \SAFTWARE{} is comparable with \texttt{T-Coffee}. For
+partially local alignments we observe the expected exponential increase
+with the nummer of local ends. Since \SAFTWARE{} is designed as a reference
+implementation of a much more expensive, exact algorithm, it is clear that
+it cannot be competitive in terms resource consumption. Much more
+interesting is the question whether our exact implementation of multi-way
+can achieve a further improvement in accuracy.
 
 \begin{figure}
   \begin{center}
