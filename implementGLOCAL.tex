@@ -34,7 +34,7 @@
 
 \newcommand{\DINGENS}[1]{\texttt{DINGENS}}
 \newcommand{\pprec}{\mathrel{\prec\!\!\!\prec}}
-\newcommand{\SAFTWARE}{\texttt{uniAlign}} %{\TODO{\texttt{SAFTWARE}}}
+\newcommand{\SAFTWARE}{\texttt{vaPLA}} %{\TODO{\texttt{SAFTWARE}}}
 
 \begin{document}
 
@@ -288,8 +288,8 @@ probabilistic version.
 
 \SAFTWARE{} is written in \texttt{Java} and uses only standard libraries.
 In principle, \SAFTWARE{} is capable of accepting an arbitrary number of
-input sequences (in FASTA format) \PFS{together with information on whether
-  each of their ends is to be treated globally or locally}. However, the
+input sequences (in FASTA format) together with information on whether
+  each of their ends is to be treated globally or locally. However, the
 resource requirements quickly become prohibitive with the number of input
 sequences and in particular the number of local ends. \SAFTWARE{} first
 explicitly constructs the partial order $\prec$ and uses this information
@@ -352,8 +352,8 @@ common alignment tools: \texttt{T-Coffee} \cite{Notredame:00},
   \label{fig:manyLoc}
 \end{figure}
 
-Comparing \PFS{the performance for few and many local ends, respectively,
-  we can see in Fig.~\ref{fig:manyLoc}} that the running time of \SAFTWARE,
+Comparing the performance for few and many local ends, respectively,
+  we can see in Fig.~\ref{fig:manyLoc} that the running time of \SAFTWARE,
 as expected, strongly depends on how many local ends needs to be handled in
 one alignment. Without local ends, i.e., for global alignments, the
 execution time of \SAFTWARE{} is comparable with \texttt{T-Coffee}. For
@@ -424,8 +424,8 @@ While biological sequences tend to be rather long as compared to average
 word lengths we see a promising application to alignment of lexical items
 where prefixing and suffixing seem to play even a bigger role that in
 biology. Even though affixes can contain information, the root of words is
-most valuable when doing cross-linguistics comparisons. \PFS{For conceptual
-  examples we refer to \cite{Retzlaff:18a}.}
+most valuable when doing cross-linguistics comparisons. For conceptual
+  examples we refer to \cite{Retzlaff:18a}.
 
 The framework of \SAFTWARE{} lends itself to further extensions. First, it
 is easily possible to derive a probabilistic version. This essentially
@@ -447,7 +447,7 @@ sequence alignment but are of some interest for structured RNAs
 are provided with structural annotation and deletions of entire structural
 elements are to be scored in a special way.
 
-\PFS{Advances in computing technology now make it feasible to compute exact
+Advances in computing technology now make it feasible to compute exact
   simultaneous solutions of alignment problems with more than two
   sequences. A combinatorial diversity of distinct alignment problems
   arises in this setting just by allowing to distinguish local and global
@@ -456,7 +456,7 @@ elements are to be scored in a special way.
   pairwise overlaps. The framework and the implementation presented here is
   a first step towards an systematic exploration of this largely uncharted
   universe of alignments, many of which we suspect will be of practical use
-  in computational biology.} 
+  in computational biology.
 
 \section*{\uppercase{Acknowledgements}}
 
