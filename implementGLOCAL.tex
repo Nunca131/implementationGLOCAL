@@ -63,7 +63,7 @@
   heuristic approximations, while pairwise alignments are typically
   computed by exact dynamic programming algorithms. In the pairwise case,
   local, global, and semi-global alignments are distinguished, with key
-  applications in pattern discovery, gene comparison, and homolgy search,
+  applications in pattern discovery, gene comparison, and homology search,
   respectively. With increasing computing power, exact alignments of
   triples and even quadruples of sequences have become feasible and recent
   applications e.g.\ in the context breakpoint discovery have shown that
@@ -79,7 +79,7 @@
 \noindent
 Global multiple alignments are typically constructed as intermediate data
 structure to support a comparative or evolutionary analysis homologous
-sequences. Alignment probablems are naturally treated as optimization
+sequences. Alignment problems are naturally treated as optimization
 problems: a scoring function evaluates the similarities in an alignment
 column and/or the pattern of gaps. Multiple alignments are almost
 exclusively treated globally, that is, all parts of the input sequence is
@@ -109,7 +109,7 @@ recursive structure is readily extended to more than two input sequences
 exponentially with the number of sequences. Exact dynamic programming
 solutions thus have been used in practice only for 3-way
 \cite{Gotoh:86,Dewey:01,Konagurthu:04,Kruspe:07a} or 4-way
-\cite{Steiner:11a} alignments. Since multipe sequence alignment problems
+\cite{Steiner:11a} alignments. Since multiple sequence alignment problems
 (for arbitrary numbers of input sequences $X$ are typically NP-hard
 \cite{Kececioglu:93,Wang:94,Bonizzoni:01,Just:01,Manthey:03,Elias:06}, they
 are solved by heuristic approximation algorithms, see \citet{Baichoo:17}
@@ -118,7 +118,7 @@ for a recent review.
 As the exact 3-way and 4-way alignments have increased in usage, variants
 of the problem that combine local and global alignments have been proposed
 for specialized application scenarios. \citet{AlArab:17a} considered the
-fate of sequences in the wake of mitochondrial genome rearrangments by
+fate of sequences in the wake of mitochondrial genome rearrangements by
 simultaneously comparing the rearranged region to both of its
 ancestors. This approach made it possible to distinguish tandem duplication
 random loss (TDRL) from reversal or transposition events. This specialized
@@ -140,12 +140,12 @@ two ingredients: (1) Each input sequence is either local or global on the
 left and either local or global on the right. This is entirely the user's
 choice and provided with the input. (2) In a particular alignment column, a
 sequence may be \textit{inactive} (if up to this column its prefix is
-considered unaligned), \textit{active} (if it contributs to the column
+considered unaligned), \textit{active} (if it contributes to the column
 either with one of its characters or with a gap this is scored), or it is
 \textit{dead} (if its suffix is considered unaligned). Consequently a
 left-local sequence starts out \textit{inactive}, while a left-global
 sequence starts out \textit{active}. Correspondingly, a right-global input
-is still \textit{active} at the end of the aligment, while a right-local
+is still \textit{active} at the end of the alignment, while a right-local
 sequence must be \textit{dead} at the end of the alignment. The partially
 local alignment problems can be solved by dynamic programming just as the
 classic pairwise problems mentioned in the introduction. As usual, a
@@ -169,7 +169,7 @@ $(A,D)$ that are comparable w.r.t.\ the partial order
 The state changes can be performed stepwisely. As shown by
 \citet{Retzlaff:18a}, $(A',D')$ is an immediate predecessor of $(A,D)$ if
 either exactly on one \textit{inactive} sequence become \textit{active} or
-exaclty one \textit{active} sequence transitions to the dead state.  We
+exactly one \textit{active} sequence transitions to the dead state.  We
 denote this relation by $\pprec$. The initial condition is $A=A_0$, where
 $A_0$ is the set of left-global sequences, and $D=\emptyset$.
 
@@ -247,10 +247,10 @@ oft the sequences, i.e., $I_k=0$ for all $k\in A_0$.  The left boundary of
 a left-local sequences $l\notin A_0$ equals the index $I_l$ at this point.
 
 Equ.(\ref{eq:maxrec}) is the simplest way to explain the recursive
-structure of the partially local alignment problem. It has the disdvantage
+structure of the partially local alignment problem. It has the disadvantage
 that it provides more than one way to obtain a particular partial alignment
 (characterized by $I,A,D$) since state transition can be performed in
-arbitrary order. As a consequence, equ.(\ref{eq:maxrec}) cannot be used to
+arbitrary order. As a consequence, Equ.(\ref{eq:maxrec}) cannot be used to
 compute partition functions over alignments, and hence to obtain a
 probabilistic version. As described in some detail by \citet{Retzlaff:18a},
 unambiguous recursions can be constructed by allowing state transitions
@@ -280,7 +280,7 @@ right-local sequences without explicitly considering a final transition to
 the \textit{dead} state after the last letter has been included into the
 alignment. Equ.(\ref{eq:maxrec2}) in general requires the consideration of
 more state changes in each step than Equ.(\ref{eq:maxrec}). While
-Equ.(\ref{eq:maxrec}) only considers the Hasse diagraph of the partial
+Equ.(\ref{eq:maxrec}) only considers the Hasse diagram of the partial
 order $\prec$, its transitive closure is required for
 Equ.(\ref{eq:maxrec2}). On the other hand, Equ.(\ref{eq:maxrec2}) provides
 a very convenient starting point for later extensions e.g.\ to a
@@ -358,7 +358,7 @@ as expected, strongly depends on how many local ends needs to be handled in
 one alignment. Without local ends, i.e., for global alignments, the
 execution time of \SAFTWARE{} is comparable with \texttt{T-Coffee}. For
 partially local alignments we observe the expected exponential increase
-with the nummer of local ends. Since \SAFTWARE{} is designed as a reference
+with the number of local ends. Since \SAFTWARE{} is designed as a reference
 implementation of a much more expensive, exact algorithm, it is clear that
 it cannot be competitive in terms resource consumption. Much more
 interesting is the question whether our exact implementation of multi-way
@@ -407,7 +407,7 @@ than the three heuristics, Fig.~\ref{fig:pse}.
 
 \section{\uppercase{Discussion}}
 
-\SAFTWARE{} is primarily meant as a reference implemention against which
+\SAFTWARE{} is primarily meant as a reference implementation against which
 specialized partially local alignments can be tested and benchmarked. We
 anticipate at least two use cases. First, \SAFTWARE{} is useful to to
 create test cases and help debugging during the development phase of a
@@ -430,7 +430,7 @@ most valuable when doing cross-linguistics comparisons. For conceptual
 The framework of \SAFTWARE{} lends itself to further extensions. First, it
 is easily possible to derive a probabilistic version. This essentially
 entails a change in the scoring from adding score contributions to
-multiplying with the corresponding Boltzmann factors. The coresponding
+multiplying with the corresponding Boltzmann factors. The corresponding
 outside algorithm could easily be constructed along the lines of
 \citet{Hoener:15b}. Another extension that could be realized very easily is
 to enforce additional constraints on state transitions. For example, it may
@@ -458,7 +458,7 @@ Advances in computing technology now make it feasible to compute exact
   universe of alignments, many of which we suspect will be of practical use
   in computational biology.
 
-\section*{\uppercase{Acknowledgements}}
+\section*{\uppercase{Acknowledgments}}
 
 NR gratefully acknowledges the hospitality of the Santa Fe Institute, where
 parts of this work were performed, as well as travel support by the ASU-SFI
