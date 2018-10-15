@@ -334,6 +334,22 @@ We use two well known benchmark protein databases to test and evaluate
 generated database whereas \texttt{BAliBASE} \cite{balibase} has a manual
 step for cleaning initial alignments before the release.
 
+\NR{Since there is no automatic step at the moment that decides on how to 
+choose localities of the ends, they had to be chosen manually by simply looking
+at the sequences. It turned out that all the choices made conformed to what 
+would be expected when looking at the reference alignment. In Fig.~\ref{fig:locs}
+we plotted the distribution over all local ends chosen.}
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=1\columnwidth]{localitiesDistribution.eps}
+	\end{center}
+\caption{blubb \TODO{normalisieren mit der Anzahl aller Enden? So wie es im Text 
+		steht ergibt es keinen Sinn, da man ja bis zu 2 Lokalit\"{a}ten pro Sequenz haben 
+	kann.}}
+\label{fig:locs}
+\end{figure}
+
 \TODO{we need to say here a few words on how we decided on global vs local
   ends! Maybe also give distribution of local ends versus number of
   sequences in the benchmark set that we use.}
