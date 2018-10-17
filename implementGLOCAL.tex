@@ -332,25 +332,22 @@ Backtracing is implemented in the usual manner: starting from the
 We use two well known benchmark protein databases to test and evaluate
 \SAFTWARE. \texttt{OXBench} \cite{oxbench} is a completely automatically
 generated database whereas \texttt{BAliBASE} \cite{balibase} has a manual
-step for cleaning initial alignments before the release.
+step for cleaning initial alignments before the release.  \PFS{Both
+  benchmark sets are intended for global multiple alignments. We therefore
+  inspected a subset of the reference alignments and manually inspected
+  overhanging ends, which we tagged for local instead of global alignment.
+  Fig.~\ref{fig:locs} summarizes the distribution of local ends in
+  benchmark set used here.}
 
-\NR{Since there is no automatic step at the moment that decides on how to 
-choose localities of the ends, they had to be chosen manually by simply looking
-at the sequences. It turned out that all the choices made conformed to what 
-would be expected when looking at the reference alignment. In Fig.~\ref{fig:locs}
-we plotted the distribution over all local ends chosen.}
 
 \begin{figure}
-	\begin{center}
-		\includegraphics[width=1\columnwidth]{localitiesDistribution.eps}
-	\end{center}
-\caption{blubb \TODO{normalisieren mit der Anzahl aller Enden.}}
-\label{fig:locs}
+  \begin{center}
+    \includegraphics[width=1\columnwidth]{localitiesDistribution.eps}
+  \end{center}
+  \caption{\PFS{Distribution of the local ends in the benchmark
+      alignments.}  \TODO{normalisieren mit der Anzahl aller Enden.}}
+  \label{fig:locs}
 \end{figure}
-
-\TODO{we need to say here a few words on how we decided on global vs local
-  ends! Maybe also give distribution of local ends versus number of
-  sequences in the benchmark set that we use.}
 
 These sequences are subsequently aligned with \SAFTWARE{} as well as three
 of the most common alignment tools: \texttt{T-Coffee} \cite{Notredame:00},
