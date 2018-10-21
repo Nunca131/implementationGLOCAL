@@ -332,22 +332,22 @@ Backtracing is implemented in the usual manner: starting from the
 We use two well known benchmark protein databases to test and evaluate
 \SAFTWARE. \texttt{OXBench} \cite{oxbench} is a completely automatically
 generated database whereas \texttt{BAliBASE} \cite{balibase} has a manual
-step for cleaning initial alignments before the release.  \PFS{Both
+step for cleaning initial alignments before the release.  Both
   benchmark sets are intended for global multiple alignments. We therefore
   inspected a subset of the reference alignments and manually inspected
   overhanging ends, which we tagged for local instead of global alignment.
   Fig.~\ref{fig:locs} summarizes the distribution of local ends in
-  benchmark set used here.}
+  benchmark set used here.
 
 
 \begin{figure}
   \begin{center}
     \includegraphics[width=1\columnwidth]{localitiesDistribution.eps}
   \end{center}
-  \caption{\PFS{Frequency distribution of the number of local ends in the
+  \caption{Frequency distribution of the number of local ends in the
       in the data set of benchmark alignments. Only a small fraction of the
       alignments is global, while most test alignments have 2--6 local
-      ends. } }
+      ends. }
   \label{fig:locs}
 \end{figure}
 
