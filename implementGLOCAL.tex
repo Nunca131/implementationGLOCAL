@@ -66,7 +66,7 @@
   applications in pattern discovery, gene comparison, and homology search,
   respectively. With increasing computing power, exact alignments of
   triples and even quadruples of sequences have become feasible and recent
-  applications e.g.\ in the context breakpoint discovery have shown that
+  applications e.g.\ in the context of breakpoint discovery have shown that
   mixed local/global multiple alignments can be of practical interest.
   \SAFTWARE{} is the first implementation of partially local multiple
   alignments of a few sequences and provides convenient access to this
@@ -208,7 +208,7 @@ alignment score are of the form
        \end{cases} 
 \label{eq:maxrec}
 \end{equation}
-The variable$\pi$ (a non-null binary vector) denotes gap pattern in the
+The variable $\pi$ (a non-null binary vector) denotes gap pattern in the
 last alignment column, the lower multi-index $I$ describes the lengths of
 the prefixes included in the alignment including this column.  Thus $I-\pi$
 is the vector of prefix lengths in the previous column. The scoring
@@ -241,16 +241,16 @@ $I_k=n_k$, the length of the $k$-th sequence, for all $k\in A^*$, with the
 the maximum taken over all indices $I_k$ with $k\in D^*$.  The maximum
 value of $I_k$ determines the right boundary of the right-local sequence.
 The recursion then proceeds, as usual, to find the index or state
-transition in Equ.(\ref{eq:maxrec}). The backtracing recursion terminates
+transition in Equ.~(\ref{eq:maxrec}). The backtracing recursion terminates
 as soon as all left-global variables $k\in A_0$ have reached the left end
 oft the sequences, i.e., $I_k=0$ for all $k\in A_0$.  The left boundary of
 a left-local sequences $l\notin A_0$ equals the index $I_l$ at this point.
 
-Equ.(\ref{eq:maxrec}) is the simplest way to explain the recursive
+Equ.~(\ref{eq:maxrec}) is the simplest way to explain the recursive
 structure of the partially local alignment problem. It has the disadvantage
 that it provides more than one way to obtain a particular partial alignment
 (characterized by $I,A,D$) since state transition can be performed in
-arbitrary order. As a consequence, Equ.(\ref{eq:maxrec}) cannot be used to
+arbitrary order. As a consequence, Equ.~(\ref{eq:maxrec}) cannot be used to
 compute partition functions over alignments, and hence to obtain a
 probabilistic version. As described in some detail by \citet{Retzlaff:18a},
 unambiguous recursions can be constructed by allowing state transitions
@@ -272,17 +272,17 @@ $k\in A\setminus A'$ or $k\in D\setminus D'$ implies $\pi_k=1$.
 
 We have implemented a general alignment algorithm for partially local
 alignments with additive gap costs, starting from
-Equ.(\ref{eq:maxrec2}). In the practical implementation we omit the the
+Equ.~(\ref{eq:maxrec2}). In the practical implementation we omit the the
 formal initial state $(A_0,\emptyset)$ and separately initialize all
 left-local sequences $k$ both in the inactive and the active state for
 $I_k=0$. Similarly, we catch die final states at the right end of
 right-local sequences without explicitly considering a final transition to
 the \textit{dead} state after the last letter has been included into the
-alignment. Equ.(\ref{eq:maxrec2}) in general requires the consideration of
-more state changes in each step than Equ.(\ref{eq:maxrec}). While
-Equ.(\ref{eq:maxrec}) only considers the Hasse diagram of the partial
+alignment. Equ.~(\ref{eq:maxrec2}) in general requires the consideration of
+more state changes in each step than Equ.~(\ref{eq:maxrec}). While
+Equ.~(\ref{eq:maxrec}) only considers the Hasse diagram of the partial
 order $\prec$, its transitive closure is required for
-Equ.(\ref{eq:maxrec2}). On the other hand, Equ.(\ref{eq:maxrec2}) provides
+Equ.~(\ref{eq:maxrec2}). On the other hand, Equ.~(\ref{eq:maxrec2}) provides
 a very convenient starting point for later extensions e.g.\ to a
 probabilistic version. 
 
@@ -304,7 +304,7 @@ $s=|A_0\setminus A^*|$ + $A^*\setminus A_0$ for the number sequences that
 are local and one end and global at the other, and $\ell$ for the number of
 local sequences, there are
 \begin{equation}
-  h = 1^a 2^s 3^{\ell} 
+  h = 1^g 2^s 3^{\ell} 
 \end{equation} 
 distinct states, because global sequences are always \textit{active},
 semi-local sequences change either state from \textit{inactive} to to
@@ -317,8 +317,8 @@ the state transitions is not constrained. With one index variable
   recursion requires $O(2^N)$ score computations for each transition
   between columns and states, resulting in an upper bound of
   $O(2^N n^N h^2)$ effort, which could in principle be reduced to
-  $O(2^N n^N h N)$ by attempting to implement Equ.(\ref{eq:maxrec})
-  instead of Equ.(\ref{eq:maxrec2}).
+  $O(2^N n^N h N)$ by attempting to implement Equ.~(\ref{eq:maxrec})
+  instead of Equ.~(\ref{eq:maxrec2}).
 
 Backtracing is implemented in the usual manner: starting from the
   position $I^*$ and state $(A^*,D^*)$ of the optimal score, \SAFTWARE{}
@@ -436,7 +436,7 @@ be compared. The current version of \SAFTWARE{} was not implemented to
 yield good performance while we expect that substantial gains can be
 achieved by parallelization with fine grained multithreading
 \cite{Martins:01}. Still it will need to be tested whether such a solution
-is realizable in Java.
+is realizable in \texttt{Java}.
 
 While biological sequences tend to be rather long as compared to average
 word lengths we see a promising application to alignment of lexical items
