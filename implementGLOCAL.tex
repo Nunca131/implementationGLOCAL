@@ -57,11 +57,23 @@
 
 \keywords{Multiple sequence alignments, dynamics programming} 
 
+
+\TODO{R2: Link to software}
+
+\TODO{R3: \\
+1.some more references covering the last 5 years for increasing attractivity\\
+``Notice that 33 references are cited and most of them do not add value to the manuscript in terms of timliness.\\
+2. check
+3. Please place Fig. 1 in p. 3 rather than in p. 2}
+
 \abstract{Multiple sequence alignments are a crucial intermediate step in a
   plethora of data analysis workflows in computational biology. While
   multiple sequence alignments are usually constructed with the help of
-  heuristic approximations, while pairwise alignments are typically
-  computed by exact dynamic programming algorithms. In the pairwise case,
+  heuristic approximations, pairwise alignments are typically
+  computed by exact dynamic programming algorithms \TODO{pairwise alignments are typically
+  computed by exact dynamic programming algorithms -- true? R1 claims it is not. 
+  R1 suggests ``if one wants to compute exact alignments, then dynamic programmin is 
+  the tool}. In the pairwise case,
   local, global, and semi-global alignments are distinguished, with key
   applications in pattern discovery, gene comparison, and homology search,
   respectively. With increasing computing power, exact alignments of
@@ -87,7 +99,12 @@ scored. The notion of ``local multiple alignments'' refer to short, usually
 gapless patterns \cite{Lukashin:99,Blanchette:02} arising in phylogenetic
 footprinting and related pattern discovery problems \cite{Tabei:09}.
 
-Local variants of sequence alignment, on the hand, play an important role
+\TODO{R1: ``usually gapless`` is not true: if you do not allow gaps, then 
+there is no point to use DP and quadratic algorithms. When you use DP it means
+that you allow insertions and deletions.} \NR{I think R1 missed the point in 
+this sentence.}
+
+Local variants of sequence alignment, on the one hand, play an important role
 in pairwise alignments. Local alignments, i.e., maximally similar
 substrings within pairs of longer sequences, are a natural way to identify
 conserved domains.  The semi-global variant of pairwise alignment, in which
@@ -230,7 +247,7 @@ dependent on the gap pattern of the last column. The full recursions for
 the breakpoint alignment model with affine gap costs, are given in the
 appendix of \citet{Retzlaff:18a}.
 
-The backtracing recursion is a rather straightforwards generalization of
+The backtracing recursion is a rather straightforward generalization of
 the backtracing scheme for the Smith-Waterman algorithm. The first step is
 to find the optimal score partially local alignment. Denote by $(A^*,D^*)$
 that unique maximal state w.r.t.\ $\preceq$, i.e., $A^*$ is the set of all
@@ -275,7 +292,7 @@ alignments with additive gap costs, starting from
 Equ.~(\ref{eq:maxrec2}). In the practical implementation we omit the the
 formal initial state $(A_0,\emptyset)$ and separately initialize all
 left-local sequences $k$ both in the inactive and the active state for
-$I_k=0$. Similarly, we catch die final states at the right end of
+$I_k=0$. Similarly, we catch the final states at the right end of
 right-local sequences without explicitly considering a final transition to
 the \textit{dead} state after the last letter has been included into the
 alignment. Equ.~(\ref{eq:maxrec2}) in general requires the consideration of
