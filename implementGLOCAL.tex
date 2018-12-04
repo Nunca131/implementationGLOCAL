@@ -120,11 +120,8 @@ solutions thus have been used in practice only for 3-way
 \cite{Steiner:11a} alignments. Since multiple sequence alignment problems
 (for arbitrary numbers of input sequences $X$ are typically NP-hard
 \cite{Kececioglu:93,Wang:94,Bonizzoni:01,Just:01,Manthey:03,Elias:06}, they
-are solved by heuristic approximation algorithms, see \citet{Baichoo:17}
-for a recent review.
-
-\TODO{R3: ``some more references covering the last 5 years for increasing
-  attractivity''}
+are solved by heuristic approximation algorithms, see
+\citet{Chatzou:16,Baichoo:17,Nute:18} for a recent reviews.
 
 As the exact 3-way and 4-way alignments have increased in usage, variants
 of the problem that combine local and global alignments have been proposed
@@ -360,11 +357,11 @@ summarizes the distribution of local ends in benchmark set used here.
 \end{figure}
 
 These sequences are subsequently aligned with \SAFTWARE{} as well as three
-of the most common alignment tools: \texttt{T-Coffee} \cite{Notredame:00},
-\texttt{MAFFT} \cite{Katoh:05}, and \texttt{ClustalW} \cite{Larkin:07}. All
-three tools are based on initial pairwise alignments and use essentially
-progressive schemes, hence presenting efficient heuristics rather than
-exact solutions.
+of the most common alignment tools: \texttt{T-Coffee}
+\cite{Notredame:00,Chang:14}, \texttt{MAFFT} \cite{Katoh:05,Nakamura:18},
+and \texttt{ClustalW} \cite{Larkin:07,Sievers:18}. All three tools are
+based on initial pairwise alignments and use essentially progressive
+schemes, hence presenting efficient heuristics rather than exact solutions.
 
 \begin{figure}
   \begin{center}
@@ -375,7 +372,7 @@ exact solutions.
     local ends (\SAFTWARE$>3$) compared to heuristic global aligners
     (\texttt{T-Coffee}, \texttt{MAFFT}, and \texttt{ClustalW}) that are
     commonly used in large-scale bioinformatics applications. \TODO{add
-    discussion of the two implemented variants!}
+    discussion of the two implemented variants!}}
   \label{fig:manyLoc}
 \end{figure}
 
@@ -456,12 +453,17 @@ biology. Even though affixes can contain information, the root of words is
 most valuable when doing cross-linguistics comparisons. For conceptual
 examples we refer to \cite{Retzlaff:18a}.
 
-\PFS{Global alignments can be constructed from arbitrarily dissimilar
-  sequences. This is not the case for local alignments, however: if no
-  sufficiently similar substrings can be found, the sequences remain
-  unaligned. It is possible therefore to construct filters loss-less
-  filters 
-
+\PFS{The computational efforts for exact dynamic programming algorithms
+  often can be reduced excluding subsets of matches using bounds on the
+  achievable scores. Lossless filters for local pairwise alignments have
+  been pioneered by \citet{Peterlongo:08,Peterlongo:09}. Ideas to prune the
+  search space of the DP problem are discussed e.g.\ by
+  \cite{Schroedl:05,Bilu:06}.  Quasi-alignments based on $k$-mer matches
+  can be employed as alignment anchors also in a global context
+  \cite{Nagar:13}. These techniques may be used not only to reduce the
+  computational effort of the exact algorithm for input sequences of
+  practical interest, but also might serve as starting points for
+  construcing efficient heuristics for partially local MSA problems.}
 
 The framework of \SAFTWARE{} lends itself to further extensions. First, it
 is easily possible to derive a probabilistic version. This essentially
