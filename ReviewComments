@@ -3,8 +3,24 @@
 
 2. Introduction:"usually gapless patterns". This is not true: if you do not allow gaps,then there is no point to use dynamic programming (DP) and quadratic algorithms. When you use DP it means that you allow insertions anddeletions.
 
+Footprinter is an exact DP algorithm. We have slightly extended the
+discussion to make clear that only approximately matching gapless
+substrings are considered. 
+
+
 3. The presentation of the tool is reduced, and I wonder why the authors didn’t include a link to the source code, or to a jar file, so that results can be replicated..”
 
-4.References are somewhatunbalanced. With the exception of (Retzlaff and Stadler, 2018), (Baichooand Ouzounis, 2017), (Schirmer and Giegerich, 2013) and three morereferences from the circle of P. F. Stadler (2015, 2017, 2011) the rest ofthe references are dated 2010 or before. Some more references (possiblyout of P. F. Stadler's circle) covering the last five years would make themanuscript more attractive in an updated context. Notice that 33references are cited and that most of them do not add value to themanuscript in terms of timeliness.
+4.References are some what unbalanced.
+
+Many of the references refer to key theoretical results on the alignment
+that are more than a decade old. We are not aware references adding to
+(or consolidating) this work. Somewhat surprisingly, there does not seem to
+be a good book covering most of the theory that could be cited instead.
+We have added several very recent references on state of the art MSA tools.
+
+*** TODO: these references will be included ***
+
+
+
 
 5. Please place Fig. 1 in p. 3 rather than in p.2.

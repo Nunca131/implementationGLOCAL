@@ -61,19 +61,13 @@
 \TODO{R2: Link to software}
 
 \TODO{R3: \\
-1.some more references covering the last 5 years for increasing attractivity\\
-``Notice that 33 references are cited and most of them do not add value to the manuscript in terms of timliness.\\
-2. check
 3. Please place Fig. 1 in p. 3 rather than in p. 2}
 
 \abstract{Multiple sequence alignments are a crucial intermediate step in a
   plethora of data analysis workflows in computational biology. While
   multiple sequence alignments are usually constructed with the help of
-  heuristic approximations, pairwise alignments are typically
-  computed by exact dynamic programming algorithms \TODO{pairwise alignments are typically
-  computed by exact dynamic programming algorithms -- true? R1 claims it is not. 
-  R1 suggests ``if one wants to compute exact alignments, then dynamic programmin is 
-  the tool}. In the pairwise case,
+  heuristic approximations, \PFS{exact pairwise alignments are readily
+    computed by dynamic programming algorithms}. In the pairwise case,
   local, global, and semi-global alignments are distinguished, with key
   applications in pattern discovery, gene comparison, and homology search,
   respectively. With increasing computing power, exact alignments of
@@ -95,17 +89,14 @@ sequences. Alignment problems are naturally treated as optimization
 problems: a scoring function evaluates the similarities in an alignment
 column and/or the pattern of gaps. Multiple alignments are almost
 exclusively treated globally, that is, all parts of the input sequence is
-scored. The notion of ``local multiple alignments'' refer to short, usually
-gapless patterns \cite{Lukashin:99,Blanchette:02} arising in phylogenetic
-footprinting and related pattern discovery problems \cite{Tabei:09}.
+scored. The notion of ``local multiple alignments'' \PFS{appears mostly in
+  the context of phylogenetic footprinting \cite{Lukashin:99,Blanchette:02}
+  and related pattern discovery problems \cite{Tabei:09}, where substrings
+  are considered that appear with a limited number of mismatches in some or
+  all input sequences.}
 
-\TODO{R1: ``usually gapless`` is not true: if you do not allow gaps, then 
-there is no point to use DP and quadratic algorithms. When you use DP it means
-that you allow insertions and deletions.} \NR{I think R1 missed the point in 
-this sentence.}
-
-Local variants of sequence alignment, on the one hand, play an important role
-in pairwise alignments. Local alignments, i.e., maximally similar
+Local variants of sequence alignment, on the one hand, play an important
+role in pairwise alignments. Local alignments, i.e., maximally similar
 substrings within pairs of longer sequences, are a natural way to identify
 conserved domains.  The semi-global variant of pairwise alignment, in which
 one sequence, usually called ``query'', is expected to appear as
@@ -131,6 +122,9 @@ solutions thus have been used in practice only for 3-way
 \cite{Kececioglu:93,Wang:94,Bonizzoni:01,Just:01,Manthey:03,Elias:06}, they
 are solved by heuristic approximation algorithms, see \citet{Baichoo:17}
 for a recent review.
+
+\TODO{R3: ``some more references covering the last 5 years for increasing
+  attractivity''}
 
 As the exact 3-way and 4-way alignments have increased in usage, variants
 of the problem that combine local and global alignments have been proposed
@@ -328,34 +322,31 @@ semi-local sequences change either state from \textit{inactive} to to
 \textit{active} or from \textit{active} to \textit{dead}, while local
 sequences can pass through all three states. All combinations of these
 states must be considered, since the relative order (between sequences) of
-the state transitions is not constrained. With one index variable
-  iterating over each of the $N$ sequences of length $O(n)$, the memory
-  requirements are $O(n^N)$ for each state.  The evaluation of the
-  recursion requires $O(2^N)$ score computations for each transition
-  between columns and states, resulting in an upper bound of
-  $O(2^N n^N h^2)$ effort, which could in principle be reduced to
-  $O(2^N n^N h N)$ by attempting to implement Equ.~(\ref{eq:maxrec})
-  instead of Equ.~(\ref{eq:maxrec2}).
+the state transitions is not constrained. With one index variable iterating
+over each of the $N$ sequences of length $O(n)$, the memory requirements
+are $O(n^N)$ for each state.  The evaluation of the recursion requires
+$O(2^N)$ score computations for each transition between columns and states,
+resulting in an upper bound of $O(2^N n^N h^2)$ effort. \PFS{The effort can
+  be reduced to $O(2^N n^N h N)$ by implementing Equ.~(\ref{eq:maxrec})
+  instead of Equ.~(\ref{eq:maxrec2}). Both variants are available in the
+  current implementation.}
 
-Backtracing is implemented in the usual manner: starting from the
-  position $I^*$ and state $(A^*,D^*)$ of the optimal score, \SAFTWARE{}
-  computes the transition that resulted in the optimal score. At present,
-  co-optimal solutions are not investigated. The first solution encountered
-  is used. The procedure then continues iteratively until a valid start state
-  is reached.
+Backtracing is implemented in the usual manner: starting from the position
+$I^*$ and state $(A^*,D^*)$ of the optimal score, \SAFTWARE{} computes the
+transition that resulted in the optimal score. At present, co-optimal
+solutions are not investigated. The first solution encountered is used. The
+procedure then continues iteratively until a valid start state is reached.
 
 \section{\uppercase{Benchmark}}
 
 We use two well known benchmark protein databases to test and evaluate
 \SAFTWARE. \texttt{OXBench} \cite{oxbench} is a completely automatically
 generated database whereas \texttt{BAliBASE} \cite{balibase} has a manual
-step for cleaning initial alignments before the release.  Both
-  benchmark sets are intended for global multiple alignments. We therefore
-  inspected a subset of the reference alignments and manually inspected
-  overhanging ends, which we tagged for local instead of global alignment.
-  Fig.~\ref{fig:locs} summarizes the distribution of local ends in
-  benchmark set used here.
-
+step for cleaning initial alignments before the release.  Both benchmark
+sets are intended for global multiple alignments. We therefore inspected a
+subset of the reference alignments and manually inspected overhanging ends,
+which we tagged for local instead of global alignment.  Fig.~\ref{fig:locs}
+summarizes the distribution of local ends in benchmark set used here.
 
 \begin{figure}
   \begin{center}
@@ -383,21 +374,25 @@ exact solutions.
     local ends (\SAFTWARE$\le3$) and for alignments with more than three
     local ends (\SAFTWARE$>3$) compared to heuristic global aligners
     (\texttt{T-Coffee}, \texttt{MAFFT}, and \texttt{ClustalW}) that are
-    commonly used in large-scale bioinformatics applications.}
+    commonly used in large-scale bioinformatics applications. \TODO{add
+    discussion of the two implemented variants!}
   \label{fig:manyLoc}
 \end{figure}
 
-Comparing the performance for few and many local ends, respectively,
-  we can see in Fig.~\ref{fig:manyLoc} that the running time of \SAFTWARE,
-as expected, strongly depends on how many local ends needs to be handled in
+Comparing the performance for few and many local ends, respectively, we can
+see in Fig.~\ref{fig:manyLoc} that the running time of \SAFTWARE, as
+expected, strongly depends on how many local ends needs to be handled in
 one alignment. Without local ends, i.e., for global alignments, the
 execution time of \SAFTWARE{} is comparable with \texttt{T-Coffee}. For
 partially local alignments we observe the expected exponential increase
 with the number of local ends. Since \SAFTWARE{} is designed as a reference
 implementation of a much more expensive, exact algorithm, it is clear that
-it cannot be competitive in terms resource consumption. Much more
-interesting is the question whether our exact implementation of multi-way
-can achieve a further improvement in accuracy.
+it cannot be competitive in terms resource consumption.
+\TODO{Fig.~\ref{fig:manyLoc} also compares the resource consumption for
+  Eqns.~(\ref{eq:maxrec}) and (\ref{eq:maxrec2}). We observe that ***** }
+Much more interesting \PFS{than the comparisons of running times, however,
+  is the question whether exact multi-way alignments yield an improvement
+  in accuracy.}
 
 \begin{figure}
   \begin{center}
@@ -410,12 +405,11 @@ can achieve a further improvement in accuracy.
 \end{figure}
 
 The average accuracy, defined as $\mbox{AC}=(L-f)/L$ where $L$ is the
-  length of the alignment and $f$ is the number of columns deviating from
-  the reference alignment, is summarized in Fig.~\ref{fig:ac}. The data
-  show that \SAFTWARE{} provides a moderate but noticeable improvement
-  relative to all three heuristics, although we use a simple scoring model
-  and none of the protein-specific rules implemented e.g.\ in
-  \texttt{ClustalW}. 
+length of the alignment and $f$ is the number of columns deviating from the
+reference alignment, is summarized in Fig.~\ref{fig:ac}. The data show that
+\SAFTWARE{} provides a moderate but noticeable improvement relative to all
+three heuristics, although we use a simple scoring model and none of the
+protein-specific rules implemented e.g.\ in \texttt{ClustalW}.
 
 \begin{figure}
   \begin{center}
@@ -442,16 +436,16 @@ than the three heuristics, Fig.~\ref{fig:pse}.
 
 \section{\uppercase{Discussion}}
 
-\SAFTWARE{} is primarily meant as a reference implementation against which
-specialized partially local alignments can be tested and benchmarked. We
-anticipate at least two use cases. First, \SAFTWARE{} is useful to to
-create test cases and help debugging during the development phase of a
-specialized exact implementation. More importantly, since \SAFTWARE{}
-computed exact solutions for a moderate number of input sequences, it can
-be used to generate ground-truth data against which faster heuristics can
-be compared. The current version of \SAFTWARE{} was not implemented to
-yield good performance while we expect that substantial gains can be
-achieved by parallelization with fine grained multithreading
+\SAFTWARE{} is primarily intended as a reference implementation against
+which specialized partially local alignments can be tested and
+benchmarked. We anticipate at least two use cases. First, \SAFTWARE{} is
+useful to to create test cases and help debugging during the development
+phase of a specialized exact implementation. More importantly, since
+\SAFTWARE{} computed exact solutions for a moderate number of input
+sequences, it can be used to generate ground-truth data against which
+faster heuristics can be compared. The current version of \SAFTWARE{} was
+not implemented to yield good performance while we expect that substantial
+gains can be achieved by parallelization with fine grained multithreading
 \cite{Martins:01}. Still it will need to be tested whether such a solution
 is realizable in \texttt{Java}.
 
@@ -460,7 +454,14 @@ word lengths we see a promising application to alignment of lexical items
 where prefixing and suffixing seem to play even a bigger role that in
 biology. Even though affixes can contain information, the root of words is
 most valuable when doing cross-linguistics comparisons. For conceptual
-  examples we refer to \cite{Retzlaff:18a}.
+examples we refer to \cite{Retzlaff:18a}.
+
+\PFS{Global alignments can be constructed from arbitrarily dissimilar
+  sequences. This is not the case for local alignments, however: if no
+  sufficiently similar substrings can be found, the sequences remain
+  unaligned. It is possible therefore to construct filters loss-less
+  filters 
+
 
 The framework of \SAFTWARE{} lends itself to further extensions. First, it
 is easily possible to derive a probabilistic version. This essentially
@@ -483,15 +484,15 @@ are provided with structural annotation and deletions of entire structural
 elements are to be scored in a special way.
 
 Advances in computing technology now make it feasible to compute exact
-  simultaneous solutions of alignment problems with more than two
-  sequences. A combinatorial diversity of distinct alignment problems
-  arises in this setting just by allowing to distinguish local and global
-  ends separately for each input. We suspect that additional variations on
-  the theme are of interest, e.g., requiring additional constraints on
-  pairwise overlaps. The framework and the implementation presented here is
-  a first step towards an systematic exploration of this largely uncharted
-  universe of alignments, many of which we suspect will be of practical use
-  in computational biology.
+simultaneous solutions of alignment problems with more than two
+sequences. A combinatorial diversity of distinct alignment problems arises
+in this setting just by allowing to distinguish local and global ends
+separately for each input. We suspect that additional variations on the
+theme are of interest, e.g., requiring additional constraints on pairwise
+overlaps. The framework and the implementation presented here is a first
+step towards an systematic exploration of this largely uncharted universe
+of alignments, many of which we suspect will be of practical use in
+computational biology.
 
 \section*{\uppercase{Acknowledgments}}
 
