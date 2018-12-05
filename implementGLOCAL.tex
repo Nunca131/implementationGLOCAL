@@ -121,7 +121,7 @@ solutions thus have been used in practice only for 3-way
 (for arbitrary numbers of input sequences $X$ are typically NP-hard
 \cite{Kececioglu:93,Wang:94,Bonizzoni:01,Just:01,Manthey:03,Elias:06}, they
 are solved by heuristic approximation algorithms, see
-\citet{Chatzou:16,Baichoo:17,Nute:18} for a recent reviews.
+\citet{Chatzou:16}, \citet{Baichoo:17} or \citet{Nute:18} for a recent reviews.
 
 As the exact 3-way and 4-way alignments have increased in usage, variants
 of the problem that combine local and global alignments have been proposed
@@ -225,7 +225,7 @@ as well as the actual sequence entries. The second alternative does not
 move in the alignment but changes the state, a step that may also be
 associated with a cost $s^*$, which in the most general case may depend on
 $I,\pi,A,D,A',D'$. Equation~(\ref{eq:maxrec}) describes the recursion for
-additive score. The special case that a sequence $k$ that is both left- and
+additive scores. The special case that a sequence $k$ that is both left- and
 right-local remains completely unaligned is handled by a directed
 transition from \textit{inactive} to \textit{dead} restricted to $I_k=0$,
 see \citet{Retzlaff:18a} for details.
@@ -240,7 +240,7 @@ appendix of \citet{Retzlaff:18a}.
 
 The backtracing recursion is a rather straightforward generalization of
 the backtracing scheme for the Smith-Waterman algorithm. The first step is
-to find the optimal score partially local alignment. Denote by $(A^*,D^*)$
+to find the optimal score of the partially local alignment. Denote by $(A^*,D^*)$
 that unique maximal state w.r.t.\ $\preceq$, i.e., $A^*$ is the set of all
 right-global sequences and $D^*$ is the set of all right-local
 sequences. Hence $A^*\cup D^*$ contains all input sequences.  The optimal
@@ -249,16 +249,16 @@ $I_k=n_k$, the length of the $k$-th sequence, for all $k\in A^*$, with the
 the maximum taken over all indices $I_k$ with $k\in D^*$.  The maximum
 value of $I_k$ determines the right boundary of the right-local sequence.
 The recursion then proceeds, as usual, to find the index or state
-transition in Equ.~(\ref{eq:maxrec}). The backtracing recursion terminates
+transition in Eq.~(\ref{eq:maxrec}). The backtracing recursion terminates
 as soon as all left-global variables $k\in A_0$ have reached the left end
 oft the sequences, i.e., $I_k=0$ for all $k\in A_0$.  The left boundary of
 a left-local sequences $l\notin A_0$ equals the index $I_l$ at this point.
 
-Equ.~(\ref{eq:maxrec}) is the simplest way to explain the recursive
+Equation~(\ref{eq:maxrec}) is the simplest way to explain the recursive
 structure of the partially local alignment problem. It has the disadvantage
 that it provides more than one way to obtain a particular partial alignment
 (characterized by $I,A,D$) since state transition can be performed in
-arbitrary order. As a consequence, Equ.~(\ref{eq:maxrec}) cannot be used to
+arbitrary order. As a consequence, Eq.~(\ref{eq:maxrec}) cannot be used to
 compute partition functions over alignments, and hence to obtain a
 probabilistic version. As described in some detail by \citet{Retzlaff:18a},
 unambiguous recursions can be constructed by allowing state transitions
@@ -278,29 +278,31 @@ $k\in A\setminus A'$ or $k\in D\setminus D'$ implies $\pi_k=1$.
 
 \section{\uppercase{Implementation}}
 
-We have implemented a general alignment algorithm for partially local
-alignments with additive gap costs, starting from
-Equ.~(\ref{eq:maxrec2}). In the practical implementation we omit the the
+\NR{We have implemented both general alignment algorithms for partially local
+alignments with additive gap costs, starting from Eq.~(\ref{eq:maxrec}) and
+Eq.~(\ref{eq:maxrec2}). In the practical implementation of Eq.~(\ref{eq:maxrec2})} we omit the the
 formal initial state $(A_0,\emptyset)$ and separately initialize all
 left-local sequences $k$ both in the inactive and the active state for
 $I_k=0$. Similarly, we catch the final states at the right end of
 right-local sequences without explicitly considering a final transition to
 the \textit{dead} state after the last letter has been included into the
-alignment. Equ.~(\ref{eq:maxrec2}) in general requires the consideration of
-more state changes in each step than Equ.~(\ref{eq:maxrec}). While
-Equ.~(\ref{eq:maxrec}) only considers the Hasse diagram of the partial
+alignment. Eq.~(\ref{eq:maxrec2}) in general requires the consideration of
+more state changes in each step than Eq.~(\ref{eq:maxrec}). While
+Eq.~(\ref{eq:maxrec}) only considers the Hasse diagram of the partial
 order $\prec$, its transitive closure is required for
-Equ.~(\ref{eq:maxrec2}). On the other hand, Equ.~(\ref{eq:maxrec2}) provides
+Eq.~(\ref{eq:maxrec2}). On the other hand, Eq.~(\ref{eq:maxrec2}) provides
 a very convenient starting point for later extensions e.g.\ to a
 probabilistic version. 
 
 \SAFTWARE{} is written in \texttt{Java} and uses only standard libraries.
+\NR{The code is available on \texttt{GitHub} (\TODO{LINK}).}
 In principle, \SAFTWARE{} is capable of accepting an arbitrary number of
 input sequences (in FASTA format) together with information on whether
   each of their ends is to be treated globally or locally. However, the
 resource requirements quickly become prohibitive with the number of input
 sequences and in particular the number of local ends. \SAFTWARE{} first
-explicitly constructs the partial order $\prec$ and uses this information
+explicitly constructs the partial orders \NR{$\pprec$ for Eq.~(\ref{eq:maxrec})
+and $\prec$ for Eq.~(\ref{eq:maxrec2})} and uses this information
 to allocated the memoization tables for the recursions. The partial order
 can be exported in \texttt{.dot} format and visualized using a standard
 graph drawing tools such as \texttt{graphviz}.
@@ -308,7 +310,7 @@ graph drawing tools such as \texttt{graphviz}.
 The partial order determines the required resources: one
 $\prod_{k\in A} O(n_k)$-size table is required for each state $(A,D)$.
 Writing $g$=$|A_0\cap A^*|$ for the number of global sequences,
-$s=|A_0\setminus A^*|$ + $A^*\setminus A_0$ for the number sequences that
+$s=|A_0\setminus A^*|$ + \NR{$|$}$A^*\setminus A_0$\NR{$|$} for the number sequences that
 are local and one end and global at the other, and $\ell$ for the number of
 local sequences, there are
 \begin{equation}
@@ -324,9 +326,9 @@ over each of the $N$ sequences of length $O(n)$, the memory requirements
 are $O(n^N)$ for each state.  The evaluation of the recursion requires
 $O(2^N)$ score computations for each transition between columns and states,
 resulting in an upper bound of $O(2^N n^N h^2)$ effort. The effort can
-  be reduced to $O(2^N n^N h N)$ by implementing Equ.~(\ref{eq:maxrec})
-  instead of Equ.~(\ref{eq:maxrec2}). Both variants are available in the
-  current implementation.
+  be reduced to $O(2^N n^N h N)$ by implementing Eq.~(\ref{eq:maxrec})
+  instead of Eq.~(\ref{eq:maxrec2}) \NR{as shown in Fig.~(\ref{fig:manyLoc})}. 
+  Both variants are available in the current implementation.
 
 Backtracing is implemented in the usual manner: starting from the position
 $I^*$ and state $(A^*,D^*)$ of the optimal score, \SAFTWARE{} computes the
@@ -342,12 +344,12 @@ generated database whereas \texttt{BAliBASE} \cite{balibase} has a manual
 step for cleaning initial alignments before the release.  Both benchmark
 sets are intended for global multiple alignments. We therefore inspected a
 subset of the reference alignments and manually inspected overhanging ends,
-which we tagged for local instead of global alignment.  Fig.~\ref{fig:locs}
+which we tagged for local instead of global alignment. Figure~\ref{fig:locs}
 summarizes the distribution of local ends in benchmark set used here.
 
 \begin{figure}
   \begin{center}
-    \includegraphics[width=1\columnwidth]{localitiesDistribution.eps}
+    \includegraphics[width=0.9\columnwidth]{localitiesDistribution.eps}
   \end{center}
   \caption{Frequency distribution of the number of local ends in the
       in the data set of benchmark alignments. Only a small fraction of the
@@ -385,8 +387,8 @@ partially local alignments we observe the expected exponential increase
 with the number of local ends. Since \SAFTWARE{} is designed as a reference
 implementation of a much more expensive, exact algorithm, it is clear that
 it cannot be competitive in terms resource consumption.
-\TODO{Fig.~\ref{fig:manyLoc} also compares the resource consumption for
-  Eqns.~(\ref{eq:maxrec}) and (\ref{eq:maxrec2}). We observe that ***** }
+\TODO{Figure~\ref{fig:manyLoc} also compares the resource consumption for
+  Eqs.~(\ref{eq:maxrec}) and (\ref{eq:maxrec2}). We observe that ***** }
 Much more interesting than the comparisons of running times, however,
   is the question whether exact multi-way alignments yield an improvement
   in accuracy.
@@ -458,7 +460,7 @@ The computational efforts for exact dynamic programming algorithms
   achievable scores. Lossless filters for local pairwise alignments have
   been pioneered by \citet{Peterlongo:08,Peterlongo:09}. Ideas to prune the
   search space of the DP problem are discussed e.g.\ by
-  \cite{Schroedl:05,Bilu:06}.  Quasi-alignments based on $k$-mer matches
+  \citet{Schroedl:05} or \citet{Bilu:06}.  Quasi-alignments based on $k$-mer matches
   can be employed as alignment anchors also in a global context
   \cite{Nagar:13}. These techniques may be used not only to reduce the
   computational effort of the exact algorithm for input sequences of
