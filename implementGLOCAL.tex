@@ -66,8 +66,8 @@
 \abstract{Multiple sequence alignments are a crucial intermediate step in a
   plethora of data analysis workflows in computational biology. While
   multiple sequence alignments are usually constructed with the help of
-  heuristic approximations, \PFS{exact pairwise alignments are readily
-    computed by dynamic programming algorithms}. In the pairwise case,
+  heuristic approximations, exact pairwise alignments are readily
+    computed by dynamic programming algorithms. In the pairwise case,
   local, global, and semi-global alignments are distinguished, with key
   applications in pattern discovery, gene comparison, and homology search,
   respectively. With increasing computing power, exact alignments of
@@ -89,11 +89,11 @@ sequences. Alignment problems are naturally treated as optimization
 problems: a scoring function evaluates the similarities in an alignment
 column and/or the pattern of gaps. Multiple alignments are almost
 exclusively treated globally, that is, all parts of the input sequence is
-scored. The notion of ``local multiple alignments'' \PFS{appears mostly in
+scored. The notion of ``local multiple alignments'' appears mostly in
   the context of phylogenetic footprinting \cite{Lukashin:99,Blanchette:02}
   and related pattern discovery problems \cite{Tabei:09}, where substrings
   are considered that appear with a limited number of mismatches in some or
-  all input sequences.}
+  all input sequences.
 
 Local variants of sequence alignment, on the one hand, play an important
 role in pairwise alignments. Local alignments, i.e., maximally similar
@@ -323,10 +323,10 @@ the state transitions is not constrained. With one index variable iterating
 over each of the $N$ sequences of length $O(n)$, the memory requirements
 are $O(n^N)$ for each state.  The evaluation of the recursion requires
 $O(2^N)$ score computations for each transition between columns and states,
-resulting in an upper bound of $O(2^N n^N h^2)$ effort. \PFS{The effort can
+resulting in an upper bound of $O(2^N n^N h^2)$ effort. The effort can
   be reduced to $O(2^N n^N h N)$ by implementing Equ.~(\ref{eq:maxrec})
   instead of Equ.~(\ref{eq:maxrec2}). Both variants are available in the
-  current implementation.}
+  current implementation.
 
 Backtracing is implemented in the usual manner: starting from the position
 $I^*$ and state $(A^*,D^*)$ of the optimal score, \SAFTWARE{} computes the
@@ -387,9 +387,9 @@ implementation of a much more expensive, exact algorithm, it is clear that
 it cannot be competitive in terms resource consumption.
 \TODO{Fig.~\ref{fig:manyLoc} also compares the resource consumption for
   Eqns.~(\ref{eq:maxrec}) and (\ref{eq:maxrec2}). We observe that ***** }
-Much more interesting \PFS{than the comparisons of running times, however,
+Much more interesting than the comparisons of running times, however,
   is the question whether exact multi-way alignments yield an improvement
-  in accuracy.}
+  in accuracy.
 
 \begin{figure}
   \begin{center}
@@ -453,7 +453,7 @@ biology. Even though affixes can contain information, the root of words is
 most valuable when doing cross-linguistics comparisons. For conceptual
 examples we refer to \cite{Retzlaff:18a}.
 
-\PFS{The computational efforts for exact dynamic programming algorithms
+The computational efforts for exact dynamic programming algorithms
   often can be reduced excluding subsets of matches using bounds on the
   achievable scores. Lossless filters for local pairwise alignments have
   been pioneered by \citet{Peterlongo:08,Peterlongo:09}. Ideas to prune the
@@ -463,7 +463,7 @@ examples we refer to \cite{Retzlaff:18a}.
   \cite{Nagar:13}. These techniques may be used not only to reduce the
   computational effort of the exact algorithm for input sequences of
   practical interest, but also might serve as starting points for
-  construcing efficient heuristics for partially local MSA problems.}
+  construcing efficient heuristics for partially local MSA problems.
 
 The framework of \SAFTWARE{} lends itself to further extensions. First, it
 is easily possible to derive a probabilistic version. This essentially

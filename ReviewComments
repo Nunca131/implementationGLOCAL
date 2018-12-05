@@ -18,9 +18,17 @@ that are more than a decade old. We are not aware references adding to
 be a good book covering most of the theory that could be cited instead.
 We have added several very recent references on state of the art MSA tools.
 
-*** TODO: these references will be included ***
+We included:
 
+Nakamura, Tsukasa, et al. "Parallelization of MAFFT for large-scale multiple sequence alignments." Bioinformatics 1 (2018): 3.
 
+Chang, Jia-Ming, Paolo Di Tommaso, and Cedric Notredame. "TCS: a new multiple sequence alignment reliability measure to estimate alignment accuracy and improve phylogenetic tree reconstruction." Molecular Biology and Evolution 31.6 (2014): 1625-1637.
+
+Sievers, Fabian, and Desmond G. Higgins. "Clustal Omega for making accurate alignments of many protein sequences." Protein Science 27.1 (2018): 135-145.
+
+Nute, Michael, Ehsan Saleh, and Tandy Warnow. "Evaluating Statistical Multiple Sequence Alignment in Comparison to Other Alignment Methods on Protein Data Sets." Systematic biology (2018).
+
+Chatzou, Maria, et al. "Multiple sequence alignment modeling: methods and applications." Briefings in bioinformatics 17.6 (2015): 1009-1023.
 
 
 5. Please place Fig. 1 in p. 3 rather than in p.2.
