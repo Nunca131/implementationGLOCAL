@@ -278,39 +278,41 @@ $k\in A\setminus A'$ or $k\in D\setminus D'$ implies $\pi_k=1$.
 
 \section{\uppercase{Implementation}}
 
-\NR{We have implemented both general alignment algorithms for partially local
-alignments with additive gap costs, starting from Eq.~(\ref{eq:maxrec}) and
-Eq.~(\ref{eq:maxrec2}). In the practical implementation of Eq.~(\ref{eq:maxrec2})} we omit the the
-formal initial state $(A_0,\emptyset)$ and separately initialize all
-left-local sequences $k$ both in the inactive and the active state for
+We have implemented \PFS{the two variants of the} alignment algorithm for
+partially local alignments with additive gap costs \PFS{based on}
+Eq.~(\ref{eq:maxrec}) and Eq.~(\ref{eq:maxrec2}), \PFS{respectively}. In
+the practical implementation of Eq.~(\ref{eq:maxrec2}) we omit the formal
+initial state $(A_0,\emptyset)$ and separately initialize all left-local
+sequences $k$ both in the inactive and the active state for
 $I_k=0$. Similarly, we catch the final states at the right end of
 right-local sequences without explicitly considering a final transition to
 the \textit{dead} state after the last letter has been included into the
 alignment. Eq.~(\ref{eq:maxrec2}) in general requires the consideration of
 more state changes in each step than Eq.~(\ref{eq:maxrec}). While
-Eq.~(\ref{eq:maxrec}) only considers the Hasse diagram of the partial
-order $\prec$, its transitive closure is required for
-Eq.~(\ref{eq:maxrec2}). On the other hand, Eq.~(\ref{eq:maxrec2}) provides
-a very convenient starting point for later extensions e.g.\ to a
-probabilistic version. 
+Eq.~(\ref{eq:maxrec}) only considers the Hasse diagram of the partial order
+$\prec$, its transitive closure is required for Eq.~(\ref{eq:maxrec2}). On
+the other hand, Eq.~(\ref{eq:maxrec2}) provides a very convenient starting
+point for later extensions e.g.\ to a probabilistic version.
 
 \SAFTWARE{} is written in \texttt{Java} and uses only standard libraries.
-\NR{The code is available on \texttt{GitHub} (\TODO{LINK}).}
-In principle, \SAFTWARE{} is capable of accepting an arbitrary number of
-input sequences (in FASTA format) together with information on whether
-  each of their ends is to be treated globally or locally. However, the
-resource requirements quickly become prohibitive with the number of input
-sequences and in particular the number of local ends. \SAFTWARE{} first
-explicitly constructs the partial orders \NR{$\pprec$ for Eq.~(\ref{eq:maxrec})
-and $\prec$ for Eq.~(\ref{eq:maxrec2})} and uses this information
-to allocated the memoization tables for the recursions. The partial order
-can be exported in \texttt{.dot} format and visualized using a standard
-graph drawing tools such as \texttt{graphviz}.
+The source code is available on \texttt{GitHub} (\TODO{LINK}).  In
+principle, \SAFTWARE{} is capable of accepting an arbitrary number of input
+sequences (in FASTA format) together with information on whether each of
+their ends is to be treated globally or locally. However, the resource
+requirements quickly become prohibitive with the number of input sequences
+and in particular the number of local ends. \SAFTWARE{} first explicitly
+constructs \PFS{the Hasse diagram of the} partial order $\prec$ for
+Eq.~(\ref{eq:maxrec2}) and uses this information to allocated the
+memoization tables for the recursions. The partial order can be exported in
+\texttt{.dot} format and visualized using a standard graph drawing tools
+such as \texttt{graphviz}. \PFS{For Eq.~(\ref{eq:maxrec}) only the relation
+  $\pprec$, i.e., the edges of the Hasse diagram, is used, while
+  Eq.~(\ref{eq:maxrec2}) makes use of the entire partial order $\prec$.}
 
 The partial order determines the required resources: one
 $\prod_{k\in A} O(n_k)$-size table is required for each state $(A,D)$.
 Writing $g$=$|A_0\cap A^*|$ for the number of global sequences,
-$s=|A_0\setminus A^*|$ + \NR{$|$}$A^*\setminus A_0$\NR{$|$} for the number sequences that
+$s=|A_0\setminus A^*| + |A^*\setminus A_0|$ for the number sequences that
 are local and one end and global at the other, and $\ell$ for the number of
 local sequences, there are
 \begin{equation}
@@ -325,10 +327,10 @@ the state transitions is not constrained. With one index variable iterating
 over each of the $N$ sequences of length $O(n)$, the memory requirements
 are $O(n^N)$ for each state.  The evaluation of the recursion requires
 $O(2^N)$ score computations for each transition between columns and states,
-resulting in an upper bound of $O(2^N n^N h^2)$ effort. The effort can
-  be reduced to $O(2^N n^N h N)$ by implementing Eq.~(\ref{eq:maxrec})
-  instead of Eq.~(\ref{eq:maxrec2}) \NR{as shown in Fig.~(\ref{fig:manyLoc})}. 
-  Both variants are available in the current implementation.
+resulting in an upper bound of $O(2^N n^N h^2)$ effort. The effort \PFS{is}
+be reduced to $O(2^N n^N h N)$ by implementing Eq.~(\ref{eq:maxrec})
+instead of Eq.~(\ref{eq:maxrec2}) as shown in Fig.~(\ref{fig:manyLoc}).
+Both variants are available in the current implementation.
 
 Backtracing is implemented in the usual manner: starting from the position
 $I^*$ and state $(A^*,D^*)$ of the optimal score, \SAFTWARE{} computes the
