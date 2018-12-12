@@ -10,6 +10,7 @@
 \usepackage{multicol}
 \usepackage{pslatex}
 \usepackage{natbib}
+\usepackage{hyperref}
 \let\cite\citep
 %%%% nasty hack to get rid of conflict of an annoying conflict
 \makeatletter
@@ -57,11 +58,6 @@
 
 \keywords{Multiple sequence alignments, dynamics programming} 
 
-
-\TODO{R2: Link to software}
-
-\TODO{R3: \\
-3. Please place Fig. 1 in p. 3 rather than in p. 2}
 
 \abstract{Multiple sequence alignments are a crucial intermediate step in a
   plethora of data analysis workflows in computational biology. While
@@ -295,13 +291,13 @@ the other hand, Eq.~(\ref{eq:maxrec2}) provides a very convenient starting
 point for later extensions e.g.\ to a probabilistic version.
 
 \SAFTWARE{} is written in \texttt{Java} and uses only standard libraries.
-The source code is available on \texttt{GitHub} (\TODO{LINK}).  In
-principle, \SAFTWARE{} is capable of accepting an arbitrary number of input
+The source code is available on \href{https://github.com/FChurcher/vaPLA}{GitHub}.
+In principle, \SAFTWARE{} is capable of accepting an arbitrary number of input
 sequences (in FASTA format) together with information on whether each of
 their ends is to be treated globally or locally. However, the resource
 requirements quickly become prohibitive with the number of input sequences
 and in particular the number of local ends. \SAFTWARE{} first explicitly
-constructs \PFS{the Hasse diagram of the} partial order $\prec$ for
+constructs the Hasse diagram of the partial order $\prec$ for
 Eq.~(\ref{eq:maxrec2}) and uses this information to allocated the
 memoization tables for the recursions. The partial order can be exported in
 \texttt{.dot} format and visualized using a standard graph drawing tools
@@ -369,14 +365,15 @@ schemes, hence presenting efficient heuristics rather than exact solutions.
 
 \begin{figure}
   \begin{center}
-    \includegraphics[width=1\columnwidth]{times_combined.eps}
+    \includegraphics[width=1\columnwidth]{times_Var_endSep.eps}
   \end{center}
   \caption{Running time of \SAFTWARE{} for alignments with at most three
-    local ends (\SAFTWARE$\le3$) and for alignments with more than three
-    local ends (\SAFTWARE$>3$) compared to heuristic global aligners
+    local ends (e.g. \SAFTWARE$\le3$) and for alignments with more than three
+    local ends (e.g. \SAFTWARE$>3$) compared to heuristic global aligners
     (\texttt{T-Coffee}, \texttt{MAFFT}, and \texttt{ClustalW}) that are
-    commonly used in large-scale bioinformatics applications. \TODO{add
-    discussion of the two implemented variants!}}
+    commonly used in large-scale bioinformatics applications. \PFS{The
+      label \SAFTWARE{} refers to Eq.~(\ref{eq:maxrec}),  \SAFTWARE{}*
+      indicated the implementation following Eq.~(\ref{eq:maxrec2}).}}
   \label{fig:manyLoc}
 \end{figure}
 
@@ -389,11 +386,14 @@ partially local alignments we observe the expected exponential increase
 with the number of local ends. Since \SAFTWARE{} is designed as a reference
 implementation of a much more expensive, exact algorithm, it is clear that
 it cannot be competitive in terms resource consumption.
-\TODO{Figure~\ref{fig:manyLoc} also compares the resource consumption for
-  Eqs.~(\ref{eq:maxrec}) and (\ref{eq:maxrec2}). We observe that ***** }
-Much more interesting than the comparisons of running times, however,
-  is the question whether exact multi-way alignments yield an improvement
-  in accuracy.
+Figure~\ref{fig:manyLoc} also compares the resource consumption for the
+implementation of Eqs.~(\ref{eq:maxrec}) and (\ref{eq:maxrec2}), resp.  As
+expected, \PFS{running times decrease when Eq.~(\ref{eq:maxrec2}) is used
+  since one iterates only over the immediate predecessors. The effect is
+  more pronounced for the data set with three or more local ends, because
+  their Hasse diagrams typically are larger.}  Much more interesting than
+the comparisons of running times, however, is the question whether exact
+multi-way alignments yield an improvement in accuracy.
 
 \begin{figure}
   \begin{center}
