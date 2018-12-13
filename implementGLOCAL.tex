@@ -274,9 +274,9 @@ $k\in A\setminus A'$ or $k\in D\setminus D'$ implies $\pi_k=1$.
 
 \section{\uppercase{Implementation}}
 
-We have implemented \PFS{the two variants of the} alignment algorithm for
-partially local alignments with additive gap costs \PFS{based on}
-Eq.~(\ref{eq:maxrec}) and Eq.~(\ref{eq:maxrec2}), \PFS{respectively}. In
+We have implemented the two variants of the alignment algorithm for
+partially local alignments with additive gap costs based on
+Eq.~(\ref{eq:maxrec}) and Eq.~(\ref{eq:maxrec2}), respectively. In
 the practical implementation of Eq.~(\ref{eq:maxrec2}) we omit the formal
 initial state $(A_0,\emptyset)$ and separately initialize all left-local
 sequences $k$ both in the inactive and the active state for
@@ -301,9 +301,9 @@ constructs the Hasse diagram of the partial order $\prec$ for
 Eq.~(\ref{eq:maxrec2}) and uses this information to allocated the
 memoization tables for the recursions. The partial order can be exported in
 \texttt{.dot} format and visualized using a standard graph drawing tools
-such as \texttt{graphviz}. \PFS{For Eq.~(\ref{eq:maxrec}) only the relation
+such as \texttt{graphviz}. For Eq.~(\ref{eq:maxrec}) only the relation
   $\pprec$, i.e., the edges of the Hasse diagram, is used, while
-  Eq.~(\ref{eq:maxrec2}) makes use of the entire partial order $\prec$.}
+  Eq.~(\ref{eq:maxrec2}) makes use of the entire partial order $\prec$.
 
 The partial order determines the required resources: one
 $\prod_{k\in A} O(n_k)$-size table is required for each state $(A,D)$.
@@ -323,8 +323,8 @@ the state transitions is not constrained. With one index variable iterating
 over each of the $N$ sequences of length $O(n)$, the memory requirements
 are $O(n^N)$ for each state.  The evaluation of the recursion requires
 $O(2^N)$ score computations for each transition between columns and states,
-resulting in an upper bound of $O(2^N n^N h^2)$ effort. The effort \PFS{is}
-be reduced to $O(2^N n^N h N)$ by implementing Eq.~(\ref{eq:maxrec})
+resulting in an upper bound of $O(2^N n^N h^2)$ effort. The effort is
+reduced to $O(2^N n^N h N)$ by implementing Eq.~(\ref{eq:maxrec})
 instead of Eq.~(\ref{eq:maxrec2}) as shown in Fig.~(\ref{fig:manyLoc}).
 Both variants are available in the current implementation.
 
@@ -371,9 +371,9 @@ schemes, hence presenting efficient heuristics rather than exact solutions.
     local ends (e.g. \SAFTWARE$\le3$) and for alignments with more than three
     local ends (e.g. \SAFTWARE$>3$) compared to heuristic global aligners
     (\texttt{T-Coffee}, \texttt{MAFFT}, and \texttt{ClustalW}) that are
-    commonly used in large-scale bioinformatics applications. \PFS{The
+    commonly used in large-scale bioinformatics applications. The
       label \SAFTWARE{} refers to Eq.~(\ref{eq:maxrec}),  \SAFTWARE{}*
-      indicated the implementation following Eq.~(\ref{eq:maxrec2}).}}
+      indicated the implementation following Eq.~(\ref{eq:maxrec2}).}
   \label{fig:manyLoc}
 \end{figure}
 
@@ -388,10 +388,10 @@ implementation of a much more expensive, exact algorithm, it is clear that
 it cannot be competitive in terms resource consumption.
 Figure~\ref{fig:manyLoc} also compares the resource consumption for the
 implementation of Eqs.~(\ref{eq:maxrec}) and (\ref{eq:maxrec2}), resp.  As
-expected, \PFS{running times decrease when Eq.~(\ref{eq:maxrec2}) is used
+expected, running times decrease when Eq.~(\ref{eq:maxrec2}) is used
   since one iterates only over the immediate predecessors. The effect is
   more pronounced for the data set with three or more local ends, because
-  their Hasse diagrams typically are larger.}  Much more interesting than
+  their Hasse diagrams typically are larger.  Much more interesting than
 the comparisons of running times, however, is the question whether exact
 multi-way alignments yield an improvement in accuracy.
 
